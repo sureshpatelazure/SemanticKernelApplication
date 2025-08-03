@@ -8,5 +8,6 @@ namespace SemanticKernelCore.KernelCore
         public void BuildKernel();
 
         IKernelBuilder KernelBuilder { get; }
+        Kernel Kernel { get; }
     }
 }
