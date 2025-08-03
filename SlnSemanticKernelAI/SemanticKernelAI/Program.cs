@@ -10,12 +10,12 @@ namespace SemanticKernelAI
         static void Main(string[] args)
         {
   
-            var builder = Host.CreateApplicationBuilder(args);
+            //var builder = Host.CreateApplicationBuilder(args);
 
-            builder.Services.AddSingleton<IKernelService, KernelService>();
+            //builder.Services.AddSingleton<IKernelService, KernelService>();
            
 
-            var app = builder.Build();
+            //var app = builder.Build();
             // Resolve and use your services as needed
 
             Console.WriteLine("Hello, World!");

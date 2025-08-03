@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SemanticKernelCore.Connectors.Configuration
 {
-    public class HuggingFaceConnectorConfiguration : IAIConnectorConfiguration
+    public class OllamaConnectorChatCompletionConfig : IAIConnectorConfiguration
     {
         public string ModelId { get; set; }
         public string Uri { get; set; }
-        public string ApiKey { get; set; }
     }
 }
