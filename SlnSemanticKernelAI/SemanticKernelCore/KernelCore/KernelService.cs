@@ -9,14 +9,28 @@ namespace SemanticKernelCore.KernelCore
 {
     public class KernelService : IKernelService
     {
-        public IKernelBuilder CreatekernelBuilder()
+        private  IKernelBuilder? _kernelBuilder;
+        private  Kernel? _kernel;
+        public KernelService()
         {
-            return Kernel.CreateBuilder();
+            _kernelBuilder = null;
+            _kernel = null;
         }
 
-        public Kernel BuildKernel(IKernelBuilder builder)
+        public IKernelBuilder KernelBuilder => _kernelBuilder; 
+        public void CreatekernelBuilder()
         {
-            return builder.Build();
+            _kernelBuilder = Kernel.CreateBuilder();
+        }
+
+        public void BuildKernel()
+        {
+            if (_kernelBuilder == null)
+            {
+                throw new InvalidOperationException("_kernelBuilder is null. Call CreatekernelBuilder() before BuildKernel().");
+            }
+
+            _kernel = _kernelBuilder.Build();
         }
 
     }

@@ -4,7 +4,9 @@ namespace SemanticKernelCore.KernelCore
 {
     public interface IKernelService
     {
-        public IKernelBuilder CreatekernelBuilder();
-        public Kernel BuildKernel(IKernelBuilder builder);
+        public void CreatekernelBuilder();
+        public void BuildKernel();
+
+        IKernelBuilder KernelBuilder { get; }
     }
 }

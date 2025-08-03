@@ -21,9 +21,7 @@ namespace SemanticKernelCore.Connectors.Ollama
         {
             if (connectorConfiguration is OllamaConnectorChatCompletionConfig ollama)
             {
-                var builder =_kernelService.CreatekernelBuilder();
-                builder.AddOllamaChatCompletion(ollama.ModelId, new Uri(ollama.Uri));
-                _kernelService.BuildKernel(builder);  // Get Kernel instance after adding the connector 
+                _kernelService.KernelBuilder.AddOllamaChatCompletion(ollama.ModelId, new Uri(ollama.Uri));
             }
             else
             {
@@ -35,9 +33,7 @@ namespace SemanticKernelCore.Connectors.Ollama
         {
             if (connectorConfiguration is OllamaConnectorEmbeddingConfig ollama)
             {
-                var builder = _kernelService.CreatekernelBuilder();
-                builder.AddOllamaEmbeddingGenerator(ollama.ModelId, new Uri(ollama.Uri));
-                _kernelService.BuildKernel(builder);  // Get Kernel instance after adding the connector 
+                _kernelService.KernelBuilder.AddOllamaEmbeddingGenerator(ollama.ModelId, new Uri(ollama.Uri));
             }
             else
             {
