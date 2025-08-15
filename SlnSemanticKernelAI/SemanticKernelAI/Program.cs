@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel.Agents.Runtime;
 using Microsoft.SemanticKernel.Services;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
+using SemanticKernelCore.Connectors.AzureAIInference;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.HuggingFace;
 using SemanticKernelCore.Connectors.Ollama;
@@ -20,7 +21,8 @@ namespace SemanticKernelAI
 
             //RunOllama();
 
-            RunHuggingFace();
+            // RunHuggingFace();
+            RunAzureAIInference();
 
         }
 
@@ -72,6 +74,22 @@ namespace SemanticKernelAI
             string yamContent = File.ReadAllText(filePath); 
 
             RunChatCompletion(chatCompletionConnector, hfConfig, yamContent);
+        }
+
+        static void RunAzureAIInference()
+        {
+
+            IChatCompletionConnector chatCompletionConnector = new AzureAIInferenceConnector();
+            AzureAIInferenceConnectorChatCompletionConfig azConfig = new AzureAIInferenceConnectorChatCompletionConfig();
+
+            azConfig.ModelId = "deepseek/DeepSeek-R1-0528";
+            azConfig.Uri = "https://models.github.ai/inference";
+            azConfig.ApiKey = ""; // Replace with your actual API key
+
+            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\pizzaorder.yaml";
+            string yamContent = File.ReadAllText(filePath);
+
+            RunChatCompletion(chatCompletionConnector, azConfig, yamContent);
         }
     }
 }
