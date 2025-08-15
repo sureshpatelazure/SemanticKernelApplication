@@ -1,6 +1,5 @@
-﻿using AIAgentPOC.PizzaOrderAIAgentDemo.Core.Model;
-
-namespace AIAgentPOC.PizzaOrderAIAgentDemo.Core.Service
+﻿
+namespace SemanticKernelAI.PizzaOrderAIAgentDemo.Core
 {
     public class PizzaService
     {

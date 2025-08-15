@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.Runtime;
 using Microsoft.SemanticKernel.Services;
+using SemanticKernelAI.PizzaOrderAIAgentDemo.Plugin;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.AzureAIInference;
@@ -11,6 +12,7 @@ using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.HuggingFace;
 using SemanticKernelCore.Connectors.Ollama;
 using SemanticKernelCore.KernelCore;
+using SemanticKernelCore.Plugin;
 
 namespace SemanticKernelAI
 {
@@ -36,6 +38,14 @@ namespace SemanticKernelAI
 
             chatCompletionConnector.AddChatCompletion(connectorConfiguration);
 
+            IPLuginObject pLuginObject = new PLuginObject();
+            pLuginObject.KernelService = kernelService;
+
+            List<Object> Plugins = new List<object>();
+            // Pizza  Order
+            Plugins.Add(new PizzaPlugin());
+
+            pLuginObject.AddPluginObject(Plugins);
 
             kernelService.BuildKernel();
 
