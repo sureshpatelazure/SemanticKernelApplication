@@ -17,7 +17,9 @@ namespace SemanticKernelAI
         static void Main(string[] args)
         {
 
-            RunOllama();
+            //RunOllama();
+
+            RunHuggingFace();
 
         }
 
@@ -53,12 +55,21 @@ namespace SemanticKernelAI
             IChatCompletionConnector chatCompletionConnector = new HuggingFaceConnector(kernelService);
             HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
             
-            hfConfig.ModelId = "meta-llama/Llama-3.1-70B-Instruct";
-            hfConfig.Uri = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.1-70B-Instruct";
-            hfConfig.ApiKey = "YOUR_HUGGING_FACE_API_KEY"; // Replace with your actual API key
+            hfConfig.ModelId = "google/gemma-2-2b-it";
+            hfConfig.Uri = "https://router.huggingface.co/";
+            hfConfig.ApiKey = ""; // Replace with your actual API key
             chatCompletionConnector.AddChatCompletion(hfConfig);
             
             kernelService.BuildKernel();
+
+            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\pizzaorder.yaml";
+            string yamContent = File.ReadAllText(filePath);
+
+            IAIAgent agent = new AIAgent(kernelService);
+            ChatCompletionAgent chatCompletionAgent = agent.CreateAIAgent(yamContent);
+
+            IChatCompletion chatCompletion = new ChatCompletion(chatCompletionAgent);
+            var response = chatCompletion.GetAgentResponseAsync("What is the capital of France?").GetAwaiter().GetResult();
         }
     }
 }
