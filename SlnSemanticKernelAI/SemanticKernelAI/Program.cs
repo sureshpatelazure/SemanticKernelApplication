@@ -42,8 +42,49 @@ namespace SemanticKernelAI
             ChatCompletionAgent chatCompletionAgent = agent.CreateAIAgent(yamContent);
 
             IChatCompletion chatCompletion = new ChatCompletion(chatCompletionAgent);
-            var response = chatCompletion.GetAgentResponseAsync("What is the capital of France?").GetAwaiter().GetResult();
+            // var response = chatCompletion.GetAgentResponseAsync("What is the capital of France?").GetAwaiter().GetResult();
+            Chat(chatCompletion);
 
+        }
+
+        static void Chat(IChatCompletion chatCompletion)
+        {
+            Console.WriteLine();
+            Console.Write("AI Agent> Please wait......");
+
+            // Start the chat with the AI agent by sending an initial message   
+            var firstresponse = chatCompletion.GetAgentResponseAsync("Please introduce yourself").GetAwaiter().GetResult();
+            Console.WriteLine();
+            Console.Write(firstresponse);
+            Console.WriteLine();
+
+            bool isComplete = false;
+
+            do
+            {
+                Console.WriteLine();
+                Console.Write("User> ");
+                string input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    continue;
+                }
+
+                if (input.Trim().Equals("EXIT", StringComparison.OrdinalIgnoreCase))
+                {
+                    isComplete = true;
+                    break;
+                }
+
+                Console.WriteLine();
+                Console.Write("AI Agent> Please wait......");
+                var response = chatCompletion.GetAgentResponseAsync(input).GetAwaiter().GetResult();
+                Console.Write("AI Agent>  " + response);
+
+                Console.WriteLine();
+
+            } while (!isComplete);
         }
         static void RunOllama()
         {
