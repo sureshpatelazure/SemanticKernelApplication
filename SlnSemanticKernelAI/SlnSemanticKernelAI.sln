@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36121.58 d17.14
+VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelAI", "SemanticKernelAI\SemanticKernelAI.csproj", "{40AB1526-B550-4EFB-829E-33AB05709A68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelCore", "SemanticKernelCore\SemanticKernelCore.csproj", "{3630C673-88F1-4D6D-A100-B0DC373B86BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIApplication", "AIApplication\AIApplication.csproj", "{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
