@@ -19,10 +19,10 @@ namespace SemanticKernelAI
         static void Main(string[] args)
         {
 
-            //RunOllama();
+            RunOllama();
 
             // RunHuggingFace();
-            RunAzureAIInference();
+        //    RunAzureAIInference();
 
         }
 
@@ -35,6 +35,7 @@ namespace SemanticKernelAI
             chatCompletionConnector.KernelService = kernelService;
 
             chatCompletionConnector.AddChatCompletion(connectorConfiguration);
+
 
             kernelService.BuildKernel();
 
@@ -93,9 +94,8 @@ namespace SemanticKernelAI
 
             ollamConfig.ModelId = "llama3.2:latest";
             ollamConfig.Uri = "http://localhost:11434/";
-            chatCompletionConnector.AddChatCompletion(ollamConfig);
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\pizzaorder.yaml";
+            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
             string yamContent = File.ReadAllText(filePath);
 
             RunChatCompletion(chatCompletionConnector, ollamConfig, yamContent);
@@ -111,7 +111,7 @@ namespace SemanticKernelAI
             hfConfig.Uri = "https://router.huggingface.co/";
             hfConfig.ApiKey = ""; // Replace with your actual API key
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\pizzaorder.yaml";
+            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
             string yamContent = File.ReadAllText(filePath); 
 
             RunChatCompletion(chatCompletionConnector, hfConfig, yamContent);
@@ -127,7 +127,7 @@ namespace SemanticKernelAI
             azConfig.Uri = "https://models.github.ai/inference";
             azConfig.ApiKey = ""; // Replace with your actual API key
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\pizzaorder.yaml";
+            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
             string yamContent = File.ReadAllText(filePath);
 
             RunChatCompletion(chatCompletionConnector, azConfig, yamContent);
