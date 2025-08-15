@@ -11,17 +11,14 @@ namespace SemanticKernelCore.Connectors.Ollama
 {
     public class OllamaConnector : IChatCompletionConnector, IEmbeddingGenerationConnector
     {
-        private readonly IKernelService _kernelService;
+        public  IKernelService KernelService { get; set; }
 
-        public OllamaConnector(IKernelService kernelService)
-        {
-            _kernelService = kernelService;
-        }
+        public OllamaConnector() { }
         public void AddChatCompletion<T>(T connectorConfiguration) where T : IAIConnectorConfiguration
         {
             if (connectorConfiguration is OllamaConnectorChatCompletionConfig ollama)
             {
-                _kernelService.KernelBuilder.AddOllamaChatCompletion(ollama.ModelId, new Uri(ollama.Uri));
+                KernelService.KernelBuilder.AddOllamaChatCompletion(ollama.ModelId, new Uri(ollama.Uri));
             }
             else
             {
@@ -33,7 +30,7 @@ namespace SemanticKernelCore.Connectors.Ollama
         {
             if (connectorConfiguration is OllamaConnectorEmbeddingConfig ollama)
             {
-                _kernelService.KernelBuilder.AddOllamaEmbeddingGenerator(ollama.ModelId, new Uri(ollama.Uri));
+                KernelService.KernelBuilder.AddOllamaEmbeddingGenerator(ollama.ModelId, new Uri(ollama.Uri));
             }
             else
             {

@@ -11,18 +11,14 @@ namespace SemanticKernelCore.Connectors.HuggingFace
 {
     public class HuggingFaceConnector : IChatCompletionConnector
     {
-        private readonly IKernelService _kernelService;
+        public  IKernelService KernelService { get; set; }
 
-        public HuggingFaceConnector(IKernelService kernelService)
-        {
-            _kernelService = kernelService;
-        }
-
+        public HuggingFaceConnector() { }
         public void AddChatCompletion<T>(T connectorConfiguration) where T : IAIConnectorConfiguration
         {
             if (connectorConfiguration is HuggingFaceConnectorChatCompletionConfig hf)
             {
-                _kernelService.KernelBuilder.AddHuggingFaceChatCompletion(hf.ModelId, new Uri(hf.Uri), hf.ApiKey);
+                KernelService.KernelBuilder.AddHuggingFaceChatCompletion(hf.ModelId, new Uri(hf.Uri), hf.ApiKey);
             }
             else
             {
