@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SemanticKernelCore\SemanticKernelCore.csproj" />
+    <ProjectReference Include="..\AIApplication\AIApplication.csproj" />
   </ItemGroup>
 
 </Project>

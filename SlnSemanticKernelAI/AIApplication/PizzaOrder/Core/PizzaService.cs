@@ -1,5 +1,5 @@
 ﻿
-namespace SemanticKernelAI.PizzaOrderAIAgentDemo.Core
+namespace AIApplication.PizzaOrder.Core
 {
     public class PizzaService
     {

@@ -1,0 +1,21 @@
+{
+  "chatcompletion": {
+    "ollama":
+      {
+        "ModelId": "llama3.2:latest",
+        "Uri": "http://localhost:11434/"
+      },
+    "huggingface":
+      {
+        "ModelId": "",
+        "Uri": "",
+        "ApiKey": ""
+      },
+    "azureaiinference":
+      {
+        "ModelId": "",
+        "Uri": "",
+        "ApiKey": ""
+      }
+  }
+}

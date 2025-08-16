@@ -1,8 +1,8 @@
-﻿using Microsoft.SemanticKernel;
-using SemanticKernelAI.PizzaOrderAIAgentDemo.Core;
+﻿using AIApplication.PizzaOrder.Core;
+using Microsoft.SemanticKernel;
 using System.ComponentModel;
 
-namespace SemanticKernelAI.PizzaOrderAIAgentDemo.Plugin
+namespace AIApplication.Plugin.Plugin
 {
     public class PizzaPlugin
     {

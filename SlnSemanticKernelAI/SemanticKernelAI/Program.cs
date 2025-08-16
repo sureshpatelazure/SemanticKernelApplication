@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.AI;
+﻿using AIApplication.PizzaOrder;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.Runtime;
 using Microsoft.SemanticKernel.Services;
-using SemanticKernelAI.PizzaOrderAIAgentDemo.Plugin;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.AzureAIInference;
@@ -21,42 +21,45 @@ namespace SemanticKernelAI
         static void Main(string[] args)
         {
 
-            RunOllama();
+            PizzaOrder pizzaOrder = new PizzaOrder();
+            IChatCompletion chatCompletion = pizzaOrder.RunPizzaOrderAgent();
+            Chat(chatCompletion);
+            // RunOllama();
 
             // RunHuggingFace();
-        //    RunAzureAIInference();
+            //    RunAzureAIInference();
 
         }
 
-        static void RunChatCompletion(IChatCompletionConnector chatCompletionConnector, 
-            IAIConnectorConfiguration connectorConfiguration,string yamContent)
-        {
-            IKernelService kernelService = new KernelService();
-            kernelService.CreatekernelBuilder();
+        //static void RunChatCompletion(IChatCompletionConnector chatCompletionConnector, 
+        //    IAIConnectorConfiguration connectorConfiguration,string yamContent)
+        //{
+        //    IKernelService kernelService = new KernelService();
+        //    kernelService.CreatekernelBuilder();
 
-            chatCompletionConnector.KernelService = kernelService;
+        //    chatCompletionConnector.KernelService = kernelService;
 
-            chatCompletionConnector.AddChatCompletion(connectorConfiguration);
+        //    chatCompletionConnector.AddChatCompletion(connectorConfiguration);
 
-            IPLuginObject pLuginObject = new PLuginObject();
-            pLuginObject.KernelService = kernelService;
+        //    IPLuginObject pLuginObject = new PLuginObject();
+        //    pLuginObject.KernelService = kernelService;
 
-            List<Object> Plugins = new List<object>();
-            // Pizza  Order
-            Plugins.Add(new PizzaPlugin());
+        //    List<Object> Plugins = new List<object>();
+        //    // Pizza  Order
+        //    Plugins.Add(new PizzaPlugin());
 
-            pLuginObject.AddPluginObject(Plugins);
+        //    pLuginObject.AddPluginObject(Plugins);
 
-            kernelService.BuildKernel();
+        //    kernelService.BuildKernel();
 
-            IAIAgent agent = new AIAgent(kernelService);
-            ChatCompletionAgent chatCompletionAgent = agent.CreateAIAgent(yamContent);
+        //    IAIAgent agent = new AIAgent(kernelService);
+        //    ChatCompletionAgent chatCompletionAgent = agent.CreateAIAgent(yamContent);
 
-            IChatCompletion chatCompletion = new ChatCompletion(chatCompletionAgent);
-            // var response = chatCompletion.GetAgentResponseAsync("What is the capital of France?").GetAwaiter().GetResult();
-            Chat(chatCompletion);
+        //    IChatCompletion chatCompletion = new ChatCompletion(chatCompletionAgent);
+        //    // var response = chatCompletion.GetAgentResponseAsync("What is the capital of France?").GetAwaiter().GetResult();
+        //    Chat(chatCompletion);
 
-        }
+        //}
 
         static void Chat(IChatCompletion chatCompletion)
         {
@@ -97,50 +100,50 @@ namespace SemanticKernelAI
 
             } while (!isComplete);
         }
-        static void RunOllama()
-        {
-            IChatCompletionConnector chatCompletionConnector = new OllamaConnector();
-            OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
+        //static void RunOllama()
+        //{
+        //    IChatCompletionConnector chatCompletionConnector = new OllamaConnector();
+        //    OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
 
-            ollamConfig.ModelId = "llama3.2:latest";
-            ollamConfig.Uri = "http://localhost:11434/";
+        //    ollamConfig.ModelId = "llama3.2:latest";
+        //    ollamConfig.Uri = "http://localhost:11434/";
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
-            string yamContent = File.ReadAllText(filePath);
+        //    string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
+        //    string yamContent = File.ReadAllText(filePath);
 
-            RunChatCompletion(chatCompletionConnector, ollamConfig, yamContent);
-        }
+        //    RunChatCompletion(chatCompletionConnector, ollamConfig, yamContent);
+        //}
 
-        static void RunHuggingFace()
-        {
-            
-            IChatCompletionConnector chatCompletionConnector = new HuggingFaceConnector();
-            HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
-            
-            hfConfig.ModelId = "google/gemma-2-2b-it";
-            hfConfig.Uri = "https://router.huggingface.co/";
-            hfConfig.ApiKey = ""; // Replace with your actual API key
+        //static void RunHuggingFace()
+        //{
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
-            string yamContent = File.ReadAllText(filePath); 
+        //    IChatCompletionConnector chatCompletionConnector = new HuggingFaceConnector();
+        //    HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
 
-            RunChatCompletion(chatCompletionConnector, hfConfig, yamContent);
-        }
+        //    hfConfig.ModelId = "google/gemma-2-2b-it";
+        //    hfConfig.Uri = "https://router.huggingface.co/";
+        //    hfConfig.ApiKey = ""; // Replace with your actual API key
 
-        static void RunAzureAIInference()
-        {
+        //    string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
+        //    string yamContent = File.ReadAllText(filePath); 
 
-            IChatCompletionConnector chatCompletionConnector = new AzureAIInferenceConnector();
-            AzureAIInferenceConnectorChatCompletionConfig azConfig = new AzureAIInferenceConnectorChatCompletionConfig();
+        //    RunChatCompletion(chatCompletionConnector, hfConfig, yamContent);
+        //}
 
-            azConfig.ModelId = "deepseek/DeepSeek-R1-0528";
-            azConfig.Uri = "https://models.github.ai/inference";
-            azConfig.ApiKey = ""; // Replace with your actual API key
+        //static void RunAzureAIInference()
+        //{
 
-            string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
-            string yamContent = File.ReadAllText(filePath);
+        //    IChatCompletionConnector chatCompletionConnector = new AzureAIInferenceConnector();
+        //    AzureAIInferenceConnectorChatCompletionConfig azConfig = new AzureAIInferenceConnectorChatCompletionConfig();
 
-            RunChatCompletion(chatCompletionConnector, azConfig, yamContent);
-        }
+        //    azConfig.ModelId = "deepseek/DeepSeek-R1-0528";
+        //    azConfig.Uri = "https://models.github.ai/inference";
+        //    azConfig.ApiKey = ""; // Replace with your actual API key
+
+        //    string filePath = "C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrderAIAgentDemo\\Prompt\\pizzaorder.yaml";
+        //    string yamContent = File.ReadAllText(filePath);
+
+        //    RunChatCompletion(chatCompletionConnector, azConfig, yamContent);
+        //}
     }
 }
