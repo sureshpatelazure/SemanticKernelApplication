@@ -5,7 +5,6 @@ using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;
-using SemanticKernelCore.KernelCore;
 
 namespace AIApplication.AIService
 {

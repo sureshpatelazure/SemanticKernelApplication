@@ -10,11 +10,10 @@
       "Uri": "https://router.huggingface.co/",
       "ApiKey": ""
     },
-    "azureaiinference":
-      {
-        "ModelId": "",
-        "Uri": "",
-        "ApiKey": ""
-      }
+    "azureaiinference": {
+      "ModelId": "deepseek/DeepSeek-R1-0528",
+      "Uri": "https://models.github.ai/inference",
+      "ApiKey": ""
+    }
   }
 }
