@@ -1,5 +1,4 @@
 ﻿using AIApplication.AIService;
-using AIApplication.Plugin.Plugin;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.KernelCore;
 using System;

@@ -9,11 +9,11 @@ namespace SemanticKernelAI
     {
         static void Main(string[] args)
         {
-            string ymlContent = File.ReadAllText("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\AIApplication\\PizzaOrder\\Prompt\\pizzaorder.yaml");
+            string ymlContent = File.ReadAllText("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\SemanticKernelAI\\PizzaOrder\\Prompt\\pizzaorder.yaml");
             List<Object> Plugins = new List<object>();
             Plugins.Add(new PizzaPlugin());
 
-            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.AzureAiInference, ymlContent, Plugins);
+            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
             Chat(chatCompletion);
         }
 
