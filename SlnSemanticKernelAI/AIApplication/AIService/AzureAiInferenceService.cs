@@ -15,27 +15,19 @@ namespace AIApplication.AIService
     {
         public override IChatCompletion RunChatCompletionService(string yamContent, List<object> plugins)
         {
-            KernelService.CreatekernelBuilder();
 
             IChatCompletionConnector chatCompletionConnector = new AzureAIInferenceConnector();
-            AzureAIInferenceConnectorChatCompletionConfig hfConfig = new AzureAIInferenceConnectorChatCompletionConfig();
+            AzureAIInferenceConnectorChatCompletionConfig azureAiInferenceConfig = new AzureAIInferenceConnectorChatCompletionConfig();
 
             AppConfiguration appConfiguration = new AppConfiguration();
 
             var config = appConfiguration.GetConnectorConfiguration("azureaiinference");
 
-            hfConfig.ModelId = config.GetValue<string>("ModelId");
-            hfConfig.Uri = config.GetValue<string>("Uri");
-            hfConfig.ApiKey = config.GetValue<string>("ApiKey");
+            azureAiInferenceConfig.ModelId = config.GetValue<string>("ModelId");
+            azureAiInferenceConfig.Uri = config.GetValue<string>("Uri");
+            azureAiInferenceConfig.ApiKey = config.GetValue<string>("ApiKey");
 
-            AddChatCompletionService(chatCompletionConnector, hfConfig);
-            AddPluginObject(plugins);
-            KernelService.BuildKernel();
-
-            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
-
-            return GetChatCompletion(chatCompletionAgent);
-
+            return RunChatService(azureAiInferenceConfig, chatCompletionConnector, yamContent, plugins);
         }
     }
 }

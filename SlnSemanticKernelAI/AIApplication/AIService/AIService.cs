@@ -1,7 +1,9 @@
-﻿using Microsoft.SemanticKernel.Agents;
+﻿using AIApplication.Configuration;
+using Microsoft.SemanticKernel.Agents;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
+using SemanticKernelCore.Connectors.Ollama;
 using SemanticKernelCore.KernelCore;
 using SemanticKernelCore.Plugin;
 
@@ -11,7 +13,7 @@ namespace AIApplication.AIService
     {
         public IKernelService KernelService { get; set; }
 
-        protected void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector, IAIConnectorConfiguration connectorConfiguration)
+        private void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector, IAIConnectorConfiguration connectorConfiguration)
         {
             if (KernelService == null)
             {
@@ -23,7 +25,7 @@ namespace AIApplication.AIService
             chatCompletionConnector.AddChatCompletion(connectorConfiguration);
         }
 
-        protected ChatCompletionAgent CreateAgent(string yamContent)
+        private ChatCompletionAgent CreateAgent(string yamContent)
         {
             if (KernelService == null)
             {
@@ -33,17 +35,17 @@ namespace AIApplication.AIService
             if (string.IsNullOrWhiteSpace(yamContent))
             {
                 throw new ArgumentException("YAML content cannot be null or empty.", nameof(yamContent));
-            }   
-            
+            }
+
             IAIAgent agent = new AIAgent(KernelService);
             return agent.CreateAIAgent(yamContent);
         }
-        protected IChatCompletion GetChatCompletion(ChatCompletionAgent chatCompletionAgent)
+        private IChatCompletion GetChatCompletion(ChatCompletionAgent chatCompletionAgent)
         {
             return new ChatCompletion(chatCompletionAgent);
         }
 
-        protected void AddPluginObject( List<object> plugins)
+        private void AddPluginObject(List<object> plugins)
         {
             if (plugins == null || !plugins.Any())
             {
@@ -59,7 +61,20 @@ namespace AIApplication.AIService
                 KernelService = KernelService
             };
             pluginObject.AddPluginObject(plugins);
-        }   
+        }
         public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath, List<object> plugins);
+
+        protected IChatCompletion RunChatService(IAIConnectorConfiguration iAIConnectorConfiguration, IChatCompletionConnector chatCompletionConnector,string yamContent, List<object> plugins)
+        {
+            KernelService.CreatekernelBuilder();
+
+            AddChatCompletionService(chatCompletionConnector, iAIConnectorConfiguration);
+            AddPluginObject(plugins);
+            KernelService.BuildKernel();
+
+            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
+
+            return GetChatCompletion(chatCompletionAgent);
+        }
     }
 }

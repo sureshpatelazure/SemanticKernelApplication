@@ -12,8 +12,6 @@ namespace AIApplication.AIService
     {
         public override IChatCompletion RunChatCompletionService(string yamContent, List<object> plugins    )
         {
-            KernelService.CreatekernelBuilder();
-
             IChatCompletionConnector chatCompletionConnector = new HuggingFaceConnector();
             HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
 
@@ -25,13 +23,7 @@ namespace AIApplication.AIService
             hfConfig.Uri = config.GetValue<string>("Uri");
             hfConfig.ApiKey = config.GetValue<string>("ApiKey");
 
-            AddChatCompletionService(chatCompletionConnector, hfConfig);
-            AddPluginObject(plugins);
-            KernelService.BuildKernel();
-
-            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
-
-            return GetChatCompletion(chatCompletionAgent);
+            return RunChatService(hfConfig, chatCompletionConnector, yamContent, plugins);
 
         }
     }

@@ -13,7 +13,7 @@ namespace SemanticKernelAI
             List<Object> Plugins = new List<object>();
             Plugins.Add(new PizzaPlugin());
 
-            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
+            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.AzureAiInference, ymlContent, Plugins);
             Chat(chatCompletion);
         }
 

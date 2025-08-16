@@ -12,7 +12,6 @@ namespace AIApplication.AIService
     {
         public override IChatCompletion RunChatCompletionService(string yamContent, List<object> plugins)
         {
-            KernelService.CreatekernelBuilder();
 
             IChatCompletionConnector chatCompletionConnector = new OllamaConnector();
             OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
@@ -24,14 +23,7 @@ namespace AIApplication.AIService
             ollamConfig.ModelId = config.GetValue<string>("ModelId"); 
             ollamConfig.Uri = config.GetValue<string>("Uri");
 
-            AddChatCompletionService(chatCompletionConnector, ollamConfig);
-            AddPluginObject(plugins);
-            KernelService.BuildKernel();    
-
-            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
-
-           return GetChatCompletion(chatCompletionAgent);
-
+           return RunChatService( ollamConfig, chatCompletionConnector, yamContent, plugins);
         }
     }
 }
