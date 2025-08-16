@@ -1,10 +1,6 @@
 ﻿using AIApplication.AIService;
 using SemanticKernelCore.AIAgentCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SemanticKernelCore.KernelCore;
 
 namespace AIApplication.PizzaOrder
 {
@@ -12,8 +8,13 @@ namespace AIApplication.PizzaOrder
     {
         public IChatCompletion RunPizzaOrderAgent()
         {
-            AIChatCompletionService aIChatCompletionService = new OllamaChatCompletionService();
-            return aIChatCompletionService.RunChatCompletionService("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\AIApplication\\PizzaOrder\\Prompt\\pizzaorder.yaml");  
+            AIService.AIService aIChatCompletionService = new OllamaService();
+            IKernelService kernelService = new KernelService();
+
+            aIChatCompletionService.KernelService = kernelService;
+
+            string yamContent = File.ReadAllText ("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\AIApplication\\PizzaOrder\\Prompt\\pizzaorder.yaml"); 
+            return aIChatCompletionService.RunChatCompletionService(yamContent);  
         }
     }
 }

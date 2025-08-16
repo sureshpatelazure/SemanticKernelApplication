@@ -1,6 +1,6 @@
 ﻿namespace AIApplication.AIService
 {
-    internal class HuggingFaceChatCompletionService
+    internal class HuggingFaceService
     {
     }
 }

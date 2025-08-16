@@ -1,16 +1,25 @@
 ﻿using AIApplication.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.SemanticKernel.Agents;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;
+using SemanticKernelCore.KernelCore;
 
 namespace AIApplication.AIService
 {
-    public class OllamaChatCompletionService : AIChatCompletionService
+    public class OllamaService : AIService
     {
-        public override IChatCompletion RunChatCompletionService(string agentPromptFilePath)
+        public override IChatCompletion RunChatCompletionService(string yamContent)
         {
+            if (KernelService == null)
+            {
+                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
+            }
+
+            KernelService.CreatekernelBuilder();
+
             IChatCompletionConnector chatCompletionConnector = new OllamaConnector();
             OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
 
@@ -21,9 +30,13 @@ namespace AIApplication.AIService
             ollamConfig.ModelId = config.GetValue<string>("ModelId"); 
             ollamConfig.Uri = config.GetValue<string>("Uri");
 
-            string yamContent = File.ReadAllText(agentPromptFilePath);
+            AddChatCompletionService(chatCompletionConnector, ollamConfig);
+            KernelService.BuildKernel();    
 
-            return RunChatCompletion(chatCompletionConnector, ollamConfig, yamContent);
+            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
+
+           return GetChatCompletion(chatCompletionAgent);
+
         }
     }
 }
