@@ -3,6 +3,7 @@ using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.KernelCore;
+using SemanticKernelCore.Plugin;
 
 namespace AIApplication.AIService
 {
@@ -40,9 +41,25 @@ namespace AIApplication.AIService
         protected IChatCompletion GetChatCompletion(ChatCompletionAgent chatCompletionAgent)
         {
             return new ChatCompletion(chatCompletionAgent);
-
         }
-        public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath);
 
+        protected void AddPluginObject( List<object> plugins)
+        {
+            if (plugins == null || !plugins.Any())
+            {
+                return;
+            }
+            if (KernelService == null)
+            {
+                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before adding plugins.");
+            }
+
+            IPLuginObject pluginObject = new PLuginObject
+            {
+                KernelService = KernelService
+            };
+            pluginObject.AddPluginObject(plugins);
+        }   
+        public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath, List<object> plugins);
     }
 }

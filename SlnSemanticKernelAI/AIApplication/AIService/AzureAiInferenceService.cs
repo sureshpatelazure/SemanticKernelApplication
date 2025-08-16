@@ -13,7 +13,7 @@ namespace AIApplication.AIService
 {
     public  class AzureAiInferenceService : AIService
     {
-        public override IChatCompletion RunChatCompletionService(string yamContent)
+        public override IChatCompletion RunChatCompletionService(string yamContent, List<object> plugins)
         {
             KernelService.CreatekernelBuilder();
 
@@ -29,6 +29,7 @@ namespace AIApplication.AIService
             hfConfig.ApiKey = config.GetValue<string>("ApiKey");
 
             AddChatCompletionService(chatCompletionConnector, hfConfig);
+            AddPluginObject(plugins);
             KernelService.BuildKernel();
 
             ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
