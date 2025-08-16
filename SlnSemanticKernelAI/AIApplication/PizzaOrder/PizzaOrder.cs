@@ -8,7 +8,8 @@ namespace AIApplication.PizzaOrder
     {
         public IChatCompletion RunPizzaOrderAgent()
         {
-            AIService.AIService aIChatCompletionService = new OllamaService();
+            //AIService.AIService aIChatCompletionService = new OllamaService();
+            AIService.AIService aIChatCompletionService = new HuggingFaceService();
             IKernelService kernelService = new KernelService();
 
             aIChatCompletionService.KernelService = kernelService;

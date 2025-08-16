@@ -10,8 +10,7 @@ namespace AIApplication.AIService
     {
         public IKernelService KernelService { get; set; }
 
-        protected void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector,
-            IAIConnectorConfiguration connectorConfiguration)
+        protected void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector, IAIConnectorConfiguration connectorConfiguration)
         {
             if (KernelService == null)
             {
@@ -29,16 +28,21 @@ namespace AIApplication.AIService
             {
                 throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
             }
+
+            if (string.IsNullOrWhiteSpace(yamContent))
+            {
+                throw new ArgumentException("YAML content cannot be null or empty.", nameof(yamContent));
+            }   
+            
             IAIAgent agent = new AIAgent(KernelService);
             return agent.CreateAIAgent(yamContent);
-        } 
-        
-        public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath);
-
+        }
         protected IChatCompletion GetChatCompletion(ChatCompletionAgent chatCompletionAgent)
         {
-           return new ChatCompletion(chatCompletionAgent);
+            return new ChatCompletion(chatCompletionAgent);
 
         }
+        public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath);
+
     }
 }

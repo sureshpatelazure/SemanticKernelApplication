@@ -13,11 +13,6 @@ namespace AIApplication.AIService
     {
         public override IChatCompletion RunChatCompletionService(string yamContent)
         {
-            if (KernelService == null)
-            {
-                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
-            }
-
             KernelService.CreatekernelBuilder();
 
             IChatCompletionConnector chatCompletionConnector = new OllamaConnector();

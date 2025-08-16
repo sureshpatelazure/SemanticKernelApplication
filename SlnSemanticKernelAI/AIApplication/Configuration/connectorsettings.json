@@ -5,12 +5,11 @@
         "ModelId": "llama3.2:latest",
         "Uri": "http://localhost:11434/"
       },
-    "huggingface":
-      {
-        "ModelId": "",
-        "Uri": "",
-        "ApiKey": ""
-      },
+    "huggingface": {
+      "ModelId": "google/gemma-2-2b-it",
+      "Uri": "https://router.huggingface.co/",
+      "ApiKey": ""
+    },
     "azureaiinference":
       {
         "ModelId": "",
