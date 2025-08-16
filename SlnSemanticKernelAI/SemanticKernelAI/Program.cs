@@ -1,18 +1,5 @@
 ﻿using AIApplication.PizzaOrder;
-using Microsoft.Extensions.AI;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.SemanticKernel.Agents;
-using Microsoft.SemanticKernel.Agents.Runtime;
-using Microsoft.SemanticKernel.Services;
 using SemanticKernelCore.AIAgentCore;
-using SemanticKernelCore.Connectors;
-using SemanticKernelCore.Connectors.AzureAIInference;
-using SemanticKernelCore.Connectors.Configuration;
-using SemanticKernelCore.Connectors.HuggingFace;
-using SemanticKernelCore.Connectors.Ollama;
-using SemanticKernelCore.KernelCore;
-using SemanticKernelCore.Plugin;
 
 namespace SemanticKernelAI
 {

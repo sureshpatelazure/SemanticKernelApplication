@@ -4,12 +4,6 @@ using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace AIApplication.AIService
 {
