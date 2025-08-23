@@ -5,9 +5,9 @@ using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.KernelCore;
 using SemanticKernelCore.Plugin;
 
-namespace AIServiceCore.AIService
+namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public abstract class AIService
+    public abstract class AIChatCompletionService
     {
         public IKernelService KernelService { get; set; }
 

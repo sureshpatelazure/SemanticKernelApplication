@@ -3,9 +3,9 @@ using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.AzureAIInference;
 using SemanticKernelCore.Connectors.Configuration;
 
-namespace AIServiceCore.AIService
+namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public  class AzureAiInferenceService : AIService
+    public  class AzureAiInferenceService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string yamContent, List<object> plugins)
         {

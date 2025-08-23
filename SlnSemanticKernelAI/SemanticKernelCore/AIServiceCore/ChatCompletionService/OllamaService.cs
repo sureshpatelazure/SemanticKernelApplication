@@ -3,9 +3,9 @@ using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;
 
-namespace AIServiceCore.AIService
+namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public class OllamaService : AIService
+    public class OllamaService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration, string yamContent, List<object> plugins)
         {

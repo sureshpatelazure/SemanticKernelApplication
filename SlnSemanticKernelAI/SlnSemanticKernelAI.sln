@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelCore", "Seman
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaOrderPlugin", "PizzaOrderPlugin\PizzaOrderPlugin.csproj", "{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServiceCore", "AIServiceCore\AIServiceCore.csproj", "{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelAIApplication", "SemanticKernelAIApplication\SemanticKernelAIApplication.csproj", "{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Release|Any CPU.ActiveCfg = Release|Any CPU

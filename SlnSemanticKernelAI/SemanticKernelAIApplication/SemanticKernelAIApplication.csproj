@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AIApplication\AIServiceCore.csproj" />
-    <ProjectReference Include="..\AIServiceCore\AIServiceCore.csproj" />
     <ProjectReference Include="..\PizzaOrderPlugin\PizzaOrderPlugin.csproj" />
     <ProjectReference Include="..\SemanticKernelCore\SemanticKernelCore.csproj" />
   </ItemGroup>

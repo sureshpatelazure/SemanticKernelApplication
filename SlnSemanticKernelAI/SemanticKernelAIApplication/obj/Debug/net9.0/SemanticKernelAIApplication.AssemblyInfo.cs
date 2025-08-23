@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SemanticKernelAIApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d99cad9d794d6c37a5996259c1c827de925f4dd1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbeca15212abc135d67f2906ca37af116a464c78")]
 [assembly: System.Reflection.AssemblyProductAttribute("SemanticKernelAIApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SemanticKernelAIApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

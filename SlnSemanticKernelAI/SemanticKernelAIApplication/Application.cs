@@ -1,7 +1,7 @@
-﻿using AIServiceCore.AIService;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SemanticKernelAIApplication.Configuration;
 using SemanticKernelCore.AIAgentCore;
+using SemanticKernelCore.AIServiceCore.ChatCompletionService;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.KernelCore;
@@ -12,7 +12,7 @@ namespace SemanticKernelAIApplication
     {
         public static IChatCompletion RunApplication(ConnectorType connectorType, string ymlContent, List<Object> Plugins)
         {
-            AIService aIChatCompletionService;
+            AIChatCompletionService aIChatCompletionService;
 
             if (connectorType == ConnectorType.AzureAiInference)
             {

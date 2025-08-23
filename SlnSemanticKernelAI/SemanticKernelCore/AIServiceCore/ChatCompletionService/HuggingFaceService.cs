@@ -3,9 +3,9 @@ using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.HuggingFace;
 
-namespace AIServiceCore.AIService
+namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public class HuggingFaceService : AIService
+    public class HuggingFaceService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string yamContent, List<object> plugins    )
         {
