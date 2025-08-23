@@ -1,14 +1,18 @@
 ﻿using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
+using Microsoft.SemanticKernel;
 using SemanticKernelAIApplication.Configuration;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.AIServiceCore.ChatCompletionService;
+using SemanticKernelCore.AIServiceCore.EmbeddingService;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
+using SemanticKernelCore.Connectors.Ollama;
 using SemanticKernelCore.KernelCore;
 using SemanticKernelCore.VectorStoreCore;
 using SemanticKernelCore.VectorStoreCore.DataLoader;
 using SemanticKernelCore.VectorStoreCore.QdrantVector;
+using static OllamaSharp.OllamaApiClient;
 
 namespace SemanticKernelAIApplication
 {
@@ -127,13 +131,39 @@ namespace SemanticKernelAIApplication
         public static void  CreateAnStoreEmbedding()
         {
             IKernelService kernelService = new KernelService();
+            AIEmbeddingService embeddingService = new OllamaEmbeddingService();
+            embeddingService.KernelService = kernelService;
+
+            IEmbeddingGeneratorConnector embeddingGeneratorConnector = new OllamaConnector();  
+            IAIConnectorConfiguration embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
+            embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);      
 
             IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore);
             IDataLoader pDFLoader = new PDFLoader();
             IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
             IVectorStoreService vectorStoreService = new QdrantVectorStoreService(_embeddingGenerator, iAIConnectorConfiguration);
 
+            //var folderPath = configuration.GetSection("files:pdffiles:IndianBailJudgments:folderPath").Get<string>();
+            //var filePaths = configuration.GetSection("files:pdffiles:IndianBailJudgments:filepath").Get<string[]>();
+            //var batchSize = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchSize");
+            //var batchDivision = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchDivision");
 
+            var folderPath = "C:\\GenAI\\IndianBailJudgmentsPDFS";
+            string[] filePaths = [];
+            int  batchSize = 1;
+            int batchDivision = 3;
+
+            if (Directory.Exists(folderPath))
+            {
+                var folderFiles = Directory.GetFiles(folderPath);
+                if (filePaths == null || filePaths.Length == 0)
+                {
+                    filePaths = new string[0];
+                }
+                filePaths = filePaths.Concat(folderFiles).ToArray();
+            }
+
+            embeddingService.UploadEmbedding(pDFLoader, vectorStoreService, filePaths, batchDivision, batchSize);
         }
     }
 }
