@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelAIApplication", "SemanticKernelAI\SemanticKernelAIApplication.csproj", "{40AB1526-B550-4EFB-829E-33AB05709A68}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelCore", "SemanticKernelCore\SemanticKernelCore.csproj", "{3630C673-88F1-4D6D-A100-B0DC373B86BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServiceCore", "AIApplication\AIServiceCore.csproj", "{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaOrderPlugin", "PizzaOrderPlugin\PizzaOrderPlugin.csproj", "{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaOrderPlugin", "PizzaOrder\PizzaOrderPlugin.csproj", "{95BF6E33-39D2-460C-ADD8-7D904ADDEE3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServiceCore", "AIServiceCore\AIServiceCore.csproj", "{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelAIApplication", "SemanticKernelAIApplication\SemanticKernelAIApplication.csproj", "{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{40AB1526-B550-4EFB-829E-33AB05709A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40AB1526-B550-4EFB-829E-33AB05709A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40AB1526-B550-4EFB-829E-33AB05709A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40AB1526-B550-4EFB-829E-33AB05709A68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3630C673-88F1-4D6D-A100-B0DC373B86BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95BF6E33-39D2-460C-ADD8-7D904ADDEE3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95BF6E33-39D2-460C-ADD8-7D904ADDEE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95BF6E33-39D2-460C-ADD8-7D904ADDEE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95BF6E33-39D2-460C-ADD8-7D904ADDEE3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD5DF34-04D3-1BCA-6C80-51182F14DE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B9D5480-822D-4A8E-C709-595AD7FF5B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28B9FD7-6ACE-1759-598D-10CBAB9122EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

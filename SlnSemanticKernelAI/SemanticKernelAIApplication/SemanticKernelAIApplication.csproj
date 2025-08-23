@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIApplication\AIServiceCore.csproj" />
+    <ProjectReference Include="..\AIServiceCore\AIServiceCore.csproj" />
+    <ProjectReference Include="..\PizzaOrderPlugin\PizzaOrderPlugin.csproj" />
+    <ProjectReference Include="..\SemanticKernelCore\SemanticKernelCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Configuration\connectorsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

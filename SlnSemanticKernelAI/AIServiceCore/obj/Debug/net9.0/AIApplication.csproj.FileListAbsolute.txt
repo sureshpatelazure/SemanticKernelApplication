@@ -1,0 +1,17 @@
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\Configuration\connectorsettings.json
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\AIApplication.deps.json
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\AIApplication.dll
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\AIApplication.pdb
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\SemanticKernelCore.dll
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\bin\Debug\net9.0\SemanticKernelCore.pdb
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.csproj.AssemblyReference.cache
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.AssemblyInfoInputs.cache
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.AssemblyInfo.cs
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.csproj.CoreCompileInputs.cache
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.sourcelink.json
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplic.36A919E6.Up2Date
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.dll
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\refint\AIApplication.dll
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\AIApplication.pdb
+C:\GenAI\GitHub - Semantic Kernel Application\SlnSemanticKernelAI\AIApplication\obj\Debug\net9.0\ref\AIApplication.dll
