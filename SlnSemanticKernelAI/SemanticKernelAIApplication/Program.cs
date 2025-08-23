@@ -8,7 +8,8 @@ namespace SemanticKernelAIApplication
     {
         static void Main(string[] args)
         {
-            Chat();
+            //Chat();
+            Application.CreateAnStoreEmbedding();
         }
 
        

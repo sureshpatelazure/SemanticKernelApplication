@@ -117,7 +117,7 @@ namespace SemanticKernelAIApplication
             {
                 QdrantVectorStorConfiguration vcConfig = new QdrantVectorStorConfiguration();
 
-                var config = appConfiguration.GetEmbeddingConnectorConfiguration("qdrant");
+                var config = appConfiguration.GetVectorStoreConnectorConfiguration("qdrant");
                 vcConfig.Uri = config.GetValue<string>("uri");
                 vcConfig.ApiKey = config.GetValue<string>("apikey");
                 vcConfig.CollectionName = config.GetValue<string>("collectionname");
@@ -131,12 +131,17 @@ namespace SemanticKernelAIApplication
         public static void  CreateAnStoreEmbedding()
         {
             IKernelService kernelService = new KernelService();
+            kernelService.CreatekernelBuilder();
+
             AIEmbeddingService embeddingService = new OllamaEmbeddingService();
             embeddingService.KernelService = kernelService;
 
-            IEmbeddingGeneratorConnector embeddingGeneratorConnector = new OllamaConnector();  
+            IEmbeddingGeneratorConnector embeddingGeneratorConnector = new OllamaConnector();
+            embeddingGeneratorConnector.KernelService = kernelService;
+
             IAIConnectorConfiguration embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
-            embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);      
+            embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);
+            kernelService.BuildKernel();
 
             IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore);
             IDataLoader pDFLoader = new PDFLoader();
@@ -148,8 +153,8 @@ namespace SemanticKernelAIApplication
             //var batchSize = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchSize");
             //var batchDivision = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchDivision");
 
-            var folderPath = "C:\\GenAI\\IndianBailJudgmentsPDFS";
-            string[] filePaths = [];
+            var folderPath = "";
+            string[] filePaths = ["C:\\GenAI\\IndianBailJudgmentsPDFS\\case0001.pdf"];
             int  batchSize = 1;
             int batchDivision = 3;
 

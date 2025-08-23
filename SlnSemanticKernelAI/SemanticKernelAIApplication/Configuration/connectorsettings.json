@@ -17,15 +17,15 @@
   },
   "embedding": {
     "ollama": {
-      "ModelId": "sentence-transformers/all-mpnet-base-v2",
-      "Uri": "https://models.github.ai/inference",
+      "ModelId": "granite-embedding:30m",
+      "Uri": "http://localhost:11434"
     }
   },
   "vectorstore": {
     "qdrant": {
-      "uri": "",
+      "uri": "https://56904cc1-06fd-4c6b-9ed4-4bb45ebfe815.us-east4-0.gcp.cloud.qdrant.io:6334",
       "apikey": "",
-      "collectionname": ""
+      "collectionname": "IndianBailJudgments"
     }
   }
 }
