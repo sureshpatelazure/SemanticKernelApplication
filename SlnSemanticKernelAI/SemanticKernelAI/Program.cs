@@ -1,8 +1,8 @@
-﻿using AIApplication.Plugin.Plugin;
+﻿using SemanticKernelAIApplication.Plugin.Plugin;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 
-namespace SemanticKernelAI
+namespace SemanticKernelAIApplication
 {
     internal class Program
     {
@@ -12,7 +12,7 @@ namespace SemanticKernelAI
             List<Object> Plugins = new List<object>();
             Plugins.Add(new PizzaPlugin());
 
-            IChatCompletion chatCompletion = AIServiceCore.Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
+            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
             Chat(chatCompletion);
         }
 

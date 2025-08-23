@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace AIServiceCore.Configuration
+namespace SemanticKernelAIApplication.Configuration
 {
     public class AppConfiguration
     {

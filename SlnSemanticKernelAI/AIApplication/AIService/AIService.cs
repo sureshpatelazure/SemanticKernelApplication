@@ -60,7 +60,7 @@ namespace AIServiceCore.AIService
             };
             pluginObject.AddPluginObject(plugins);
         }
-        public abstract IChatCompletion RunChatCompletionService(string agentPromptFilePath, List<object> plugins);
+        public abstract IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string agentPromptFilePath, List<object> plugins);
 
         protected IChatCompletion RunChatService(IAIConnectorConfiguration iAIConnectorConfiguration, IChatCompletionConnector chatCompletionConnector,string yamContent, List<object> plugins)
         {

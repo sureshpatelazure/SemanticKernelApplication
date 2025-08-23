@@ -17,10 +17,4 @@
     <ProjectReference Include="..\SemanticKernelCore\SemanticKernelCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Configuration\connectorsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

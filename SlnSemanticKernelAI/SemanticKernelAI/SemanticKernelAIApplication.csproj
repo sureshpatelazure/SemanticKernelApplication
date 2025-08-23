@@ -15,4 +15,10 @@
     <ProjectReference Include="..\AIApplication\AIServiceCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Configuration\connectorsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
