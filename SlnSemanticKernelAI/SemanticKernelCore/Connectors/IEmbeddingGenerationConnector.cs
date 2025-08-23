@@ -3,9 +3,9 @@ using SemanticKernelCore.KernelCore;
 
 namespace SemanticKernelCore.Connectors
 {
-    public interface IEmbeddingGenerationConnector
+    public interface IEmbeddingGeneratorConnector
     {
         public IKernelService KernelService { get; set; }
-        void AddEmbeddingGeneration<T>(T connectorConfiguration) where T : IAIConnectorConfiguration;
+        void AddEmbeddingGenerator<T>(T connectorConfiguration) where T : IAIConnectorConfiguration;
     }
 }

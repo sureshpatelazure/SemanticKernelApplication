@@ -4,7 +4,7 @@ using SemanticKernelCore.KernelCore;
 
 namespace SemanticKernelCore.Connectors.Ollama
 {
-    public class OllamaConnector : IChatCompletionConnector, IEmbeddingGenerationConnector
+    public class OllamaConnector : IChatCompletionConnector, IEmbeddingGeneratorConnector
     {
         public  IKernelService KernelService { get; set; }
 
@@ -21,7 +21,7 @@ namespace SemanticKernelCore.Connectors.Ollama
             }
         }
 
-        public void AddEmbeddingGeneration<T>(T connectorConfiguration) where T : IAIConnectorConfiguration
+        public void AddEmbeddingGenerator<T>(T connectorConfiguration) where T : IAIConnectorConfiguration
         {
             if (connectorConfiguration is OllamaConnectorEmbeddingConfig ollama)
             {

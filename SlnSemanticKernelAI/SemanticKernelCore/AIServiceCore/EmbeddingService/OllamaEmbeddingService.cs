@@ -10,15 +10,15 @@ namespace SemanticKernelCore.AIServiceCore.EmbeddingService
 {
     public class OllamaEmbeddingService : AIEmbeddingService
     {
-        public override void AddOllamaEmbeddingGenerator(IEmbeddingGenerationConnector embeddingGenerationConnector, IAIConnectorConfiguration connectorConfiguration)
+        public override void AddEmbeddingGenerator(IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration connectorConfiguration)
         {
             if (KernelService == null)
             {
                 throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
             }
 
-            embeddingGenerationConnector.KernelService = KernelService;
-            embeddingGenerationConnector.AddEmbeddingGeneration(connectorConfiguration);
+            embeddingGeneratorConnector.KernelService = KernelService;
+            embeddingGeneratorConnector.AddEmbeddingGenerator(connectorConfiguration);
         }
     }
 }
