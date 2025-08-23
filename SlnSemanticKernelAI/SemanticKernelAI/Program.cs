@@ -1,4 +1,4 @@
-﻿using SemanticKernelAIApplication.Plugin.Plugin;
+﻿using PizzaOrderPlugin.Plugin;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 

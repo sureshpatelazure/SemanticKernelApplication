@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using SemanticKernelCore.AIAgentCore;
+﻿using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;

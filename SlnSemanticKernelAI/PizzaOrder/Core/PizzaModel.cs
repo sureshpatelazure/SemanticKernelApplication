@@ -1,4 +1,4 @@
-﻿namespace SemanticKernelAIApplication.PizzaOrder.Core
+﻿namespace PizzaOrderPlugin.Core
 {
     public class Pizza
     {
