@@ -8,17 +8,21 @@ namespace SemanticKernelAIApplication
     {
         static void Main(string[] args)
         {
-            //Chat();
-            Application.CreateAnStoreEmbedding();
+            Chat();
+            //Application.CreateAnStoreEmbedding();
         }
 
        
 
         static void Chat()
         {
-            string ymlContent = File.ReadAllText("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\PizzaOrderPlugin\\Prompt\\pizzaorder.yaml");
+            //string ymlContent = File.ReadAllText("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\PizzaOrderPlugin\\Prompt\\pizzaorder.yaml");
+            //List<Object> Plugins = new List<object>();
+            //Plugins.Add(new PizzaPlugin());
+            
+            string ymlContent = File.ReadAllText("C:\\GenAI\\indianBailJudgements.yaml");
             List<Object> Plugins = new List<object>();
-            Plugins.Add(new PizzaPlugin());
+
 
             IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
 
