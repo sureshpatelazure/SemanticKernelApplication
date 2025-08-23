@@ -5,5 +5,6 @@
         Ollama = 1,
         AzureAiInference = 2,
         HuggingFace = 3, 
+        VectorStore = 4
     }
 }

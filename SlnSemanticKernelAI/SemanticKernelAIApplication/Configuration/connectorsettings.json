@@ -1,10 +1,9 @@
 {
   "chatcompletion": {
-    "ollama":
-      {
-        "ModelId": "llama3.2:latest",
-        "Uri": "http://localhost:11434/"
-      },
+    "ollama": {
+      "ModelId": "llama3.2:latest",
+      "Uri": "http://localhost:11434/"
+    },
     "huggingface": {
       "ModelId": "google/gemma-2-2b-it",
       "Uri": "https://router.huggingface.co/",
@@ -14,6 +13,19 @@
       "ModelId": "mistral-ai/mistral-medium-2505",
       "Uri": "https://models.github.ai/inference",
       "ApiKey": ""
+    }
+  },
+  "embedding": {
+    "ollama": {
+      "ModelId": "sentence-transformers/all-mpnet-base-v2",
+      "Uri": "https://models.github.ai/inference",
+    }
+  },
+  "vectorstore": {
+    "qdrant": {
+      "uri": "",
+      "apikey": "",
+      "collection": ""
     }
   }
 }

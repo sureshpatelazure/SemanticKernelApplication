@@ -8,16 +8,19 @@ namespace SemanticKernelAIApplication
     {
         static void Main(string[] args)
         {
+            Chat();
+        }
+
+       
+
+        static void Chat()
+        {
             string ymlContent = File.ReadAllText("C:\\GenAI\\GitHub - Semantic Kernel Application\\SlnSemanticKernelAI\\PizzaOrderPlugin\\Prompt\\pizzaorder.yaml");
             List<Object> Plugins = new List<object>();
             Plugins.Add(new PizzaPlugin());
 
             IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
-            Chat(chatCompletion);
-        }
 
-        static void Chat(IChatCompletion chatCompletion)
-        {
             Console.WriteLine();
             Console.Write("AI Agent> Please wait......");
 

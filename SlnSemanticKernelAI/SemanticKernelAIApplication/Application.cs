@@ -31,7 +31,7 @@ namespace SemanticKernelAIApplication
                 throw new ArgumentException("Unsupported connector type.", nameof(connectorType));
             }
 
-            IAIConnectorConfiguration connectorConfig = GetConnectorConfig(connectorType);  
+            IAIConnectorConfiguration connectorConfig = GetChatCompletionConnectorConnectorConfig(connectorType);  
             if (connectorConfig == null)
             {
                 throw new InvalidOperationException("Failed to get connector configuration.");
@@ -44,13 +44,13 @@ namespace SemanticKernelAIApplication
             return aIChatCompletionService.RunChatCompletionService(connectorConfig, ymlContent, Plugins);
         }
 
-        public static IAIConnectorConfiguration GetConnectorConfig(ConnectorType connectorType)
+        public static IAIConnectorConfiguration GetChatCompletionConnectorConnectorConfig(ConnectorType connectorType)
         {
             AppConfiguration appConfiguration = new AppConfiguration();
 
             if (connectorType == ConnectorType.AzureAiInference)
             {
-                var config = appConfiguration.GetConnectorConfiguration("azureaiinference");
+                var config = appConfiguration.GetChatCompletionConnectorConfiguration("azureaiinference");
 
                 AzureAIInferenceConnectorChatCompletionConfig azureAiInferenceConfig = new AzureAIInferenceConnectorChatCompletionConfig(); 
                 azureAiInferenceConfig.ModelId = config.GetValue<string>("ModelId");
@@ -62,7 +62,7 @@ namespace SemanticKernelAIApplication
             {
                 OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
 
-                var config = appConfiguration.GetConnectorConfiguration("ollama");
+                var config = appConfiguration.GetChatCompletionConnectorConfiguration("ollama");
                 ollamConfig.ModelId = config.GetValue<string>("ModelId");
                 ollamConfig.Uri = config.GetValue<string>("Uri");
 
@@ -72,7 +72,7 @@ namespace SemanticKernelAIApplication
             {
                 HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
 
-                var config = appConfiguration.GetConnectorConfiguration("huggingface");
+                var config = appConfiguration.GetChatCompletionConnectorConfiguration("huggingface");
 
                 hfConfig.ModelId = config.GetValue<string>("ModelId");
                 hfConfig.Uri = config.GetValue<string>("Uri");
@@ -80,9 +80,12 @@ namespace SemanticKernelAIApplication
 
                 return hfConfig;
             }
-
             return null;
         }
 
+        public static void  CreateAnStoreEmbedding()
+        {
+
+        }
     }
 }

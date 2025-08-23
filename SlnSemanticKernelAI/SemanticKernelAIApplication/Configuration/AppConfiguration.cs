@@ -13,7 +13,7 @@ namespace SemanticKernelAIApplication.Configuration
 
             _connectorConfiguration = builder.Build();
         }
-        public IConfigurationSection GetConnectorConfiguration(string ConnectorName)
+        public IConfigurationSection GetChatCompletionConnectorConfiguration(string ConnectorName)
         {
             var section = _connectorConfiguration.GetSection("chatcompletion").GetSection(ConnectorName);
             if (section == null)
