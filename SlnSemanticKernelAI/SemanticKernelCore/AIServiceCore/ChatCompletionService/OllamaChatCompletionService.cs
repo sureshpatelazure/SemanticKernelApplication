@@ -5,7 +5,7 @@ using SemanticKernelCore.Connectors.Ollama;
 
 namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public class OllamaService : AIChatCompletionService
+    public class OllamaChatCompletionService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration, string yamContent, List<object> plugins)
         {

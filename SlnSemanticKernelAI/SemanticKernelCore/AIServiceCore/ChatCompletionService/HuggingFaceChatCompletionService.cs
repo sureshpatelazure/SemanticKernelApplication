@@ -5,7 +5,7 @@ using SemanticKernelCore.Connectors.HuggingFace;
 
 namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public class HuggingFaceService : AIChatCompletionService
+    public class HuggingFaceChatCompletionService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string yamContent, List<object> plugins    )
         {

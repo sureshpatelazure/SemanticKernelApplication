@@ -5,7 +5,7 @@ using SemanticKernelCore.Connectors.Configuration;
 
 namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public  class AzureAiInferenceService : AIChatCompletionService
+    public  class AzureAiInferenceChatCompletionService : AIChatCompletionService
     {
         public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string yamContent, List<object> plugins)
         {

@@ -16,15 +16,15 @@ namespace SemanticKernelAIApplication
 
             if (connectorType == ConnectorType.AzureAiInference)
             {
-                aIChatCompletionService = new AzureAiInferenceService();
+                aIChatCompletionService = new AzureAiInferenceChatCompletionService();
             }
             else if (connectorType == ConnectorType.Ollama)
             {
-                aIChatCompletionService = new OllamaService();
+                aIChatCompletionService = new OllamaChatCompletionService();
             }
             else if (connectorType == ConnectorType.HuggingFace)
             {
-                aIChatCompletionService = new HuggingFaceService();
+                aIChatCompletionService = new HuggingFaceChatCompletionService();
             }
             else
             {
