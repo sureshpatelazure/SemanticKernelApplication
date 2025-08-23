@@ -1,4 +1,4 @@
-﻿namespace AIServiceCore
+﻿namespace SemanticKernelCore.Connectors
 {
     public enum ConnectorType
     {

@@ -1,5 +1,6 @@
 ﻿using AIServiceCore.AIService;
 using SemanticKernelCore.AIAgentCore;
+using SemanticKernelCore.Connectors;
 using SemanticKernelCore.KernelCore;
 
 namespace AIServiceCore

@@ -1,6 +1,6 @@
 ﻿using AIApplication.Plugin.Plugin;
-using AIServiceCore;
 using SemanticKernelCore.AIAgentCore;
+using SemanticKernelCore.Connectors;
 
 namespace SemanticKernelAI
 {

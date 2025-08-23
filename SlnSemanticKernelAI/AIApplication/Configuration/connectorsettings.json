@@ -8,12 +8,12 @@
     "huggingface": {
       "ModelId": "google/gemma-2-2b-it",
       "Uri": "https://router.huggingface.co/",
-      "ApiKey": "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"
+      "ApiKey": ""
     },
     "azureaiinference": {
       "ModelId": "mistral-ai/mistral-medium-2505",
       "Uri": "https://models.github.ai/inference",
-      "ApiKey": "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"
+      "ApiKey": ""
     }
   }
 }
