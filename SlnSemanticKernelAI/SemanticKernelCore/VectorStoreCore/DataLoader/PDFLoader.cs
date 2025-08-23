@@ -2,7 +2,6 @@
 using UglyToad.PdfPig.Content;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.PageSegmenter;
 
-
 namespace SemanticKernelCore.VectorStoreCore.DataLoader
 {
     public class PDFLoader : IDataLoader
