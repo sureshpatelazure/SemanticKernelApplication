@@ -1,6 +1,5 @@
-﻿using AIApplication;
-using AIApplication.PizzaOrder;
-using AIApplication.Plugin.Plugin;
+﻿using AIApplication.Plugin.Plugin;
+using AIServiceCore;
 using SemanticKernelCore.AIAgentCore;
 
 namespace SemanticKernelAI
@@ -13,7 +12,7 @@ namespace SemanticKernelAI
             List<Object> Plugins = new List<object>();
             Plugins.Add(new PizzaPlugin());
 
-            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.AzureAiInference, ymlContent, Plugins);
+            IChatCompletion chatCompletion = AIServiceCore.Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
             Chat(chatCompletion);
         }
 

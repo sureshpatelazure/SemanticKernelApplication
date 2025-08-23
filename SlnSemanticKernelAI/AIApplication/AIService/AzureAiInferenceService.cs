@@ -1,15 +1,11 @@
-﻿using AIApplication.Configuration;
-using Microsoft.SemanticKernel.Agents;
+﻿using AIServiceCore.Configuration;
+using Microsoft.Extensions.Configuration;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.AzureAIInference;
 using SemanticKernelCore.Connectors.Configuration;
-using SemanticKernelCore.Connectors.HuggingFace;
-using SemanticKernelCore.KernelCore;
 
-using Microsoft.Extensions.Configuration;
-
-namespace AIApplication.AIService
+namespace AIServiceCore.AIService
 {
     public  class AzureAiInferenceService : AIService
     {

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelAI", "Semanti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernelCore", "SemanticKernelCore\SemanticKernelCore.csproj", "{3630C673-88F1-4D6D-A100-B0DC373B86BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIApplication", "AIApplication\AIApplication.csproj", "{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServiceCore", "AIApplication\AIServiceCore.csproj", "{9FA6C39B-E31C-4854-BFBB-F3596B1F12AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

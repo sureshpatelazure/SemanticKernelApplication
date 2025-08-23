@@ -1,13 +1,8 @@
-﻿using AIApplication.AIService;
+﻿using AIServiceCore.AIService;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.KernelCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AIApplication
+namespace AIServiceCore
 {
     public static class Application
     {

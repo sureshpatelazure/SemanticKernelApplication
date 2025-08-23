@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace AIApplication.Configuration
+namespace AIServiceCore.Configuration
 {
     public class AppConfiguration
     {

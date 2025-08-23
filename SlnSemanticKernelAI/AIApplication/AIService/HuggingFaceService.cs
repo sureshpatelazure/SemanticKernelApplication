@@ -1,12 +1,11 @@
-﻿using AIApplication.Configuration;
+﻿using AIServiceCore.Configuration;
 using Microsoft.Extensions.Configuration;
-using Microsoft.SemanticKernel.Agents;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.HuggingFace;
 
-namespace AIApplication.AIService
+namespace AIServiceCore.AIService
 {
     public class HuggingFaceService : AIService
     {

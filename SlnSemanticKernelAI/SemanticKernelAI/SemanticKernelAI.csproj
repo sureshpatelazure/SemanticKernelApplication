@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AIApplication\AIApplication.csproj" />
+    <ProjectReference Include="..\AIApplication\AIServiceCore.csproj" />
   </ItemGroup>
 
 </Project>

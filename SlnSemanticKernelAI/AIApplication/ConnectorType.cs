@@ -1,4 +1,4 @@
-﻿namespace AIApplication
+﻿namespace AIServiceCore
 {
     public enum ConnectorType
     {

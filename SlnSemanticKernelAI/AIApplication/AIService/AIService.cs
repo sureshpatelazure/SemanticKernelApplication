@@ -1,13 +1,11 @@
-﻿using AIApplication.Configuration;
-using Microsoft.SemanticKernel.Agents;
+﻿using Microsoft.SemanticKernel.Agents;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
-using SemanticKernelCore.Connectors.Ollama;
 using SemanticKernelCore.KernelCore;
 using SemanticKernelCore.Plugin;
 
-namespace AIApplication.AIService
+namespace AIServiceCore.AIService
 {
     public abstract class AIService
     {
