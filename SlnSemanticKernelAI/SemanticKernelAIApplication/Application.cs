@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
 using SemanticKernelAIApplication.Configuration;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.AIServiceCore.ChatCompletionService;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.KernelCore;
+using SemanticKernelCore.VectorStoreCore;
+using SemanticKernelCore.VectorStoreCore.DataLoader;
+using SemanticKernelCore.VectorStoreCore.QdrantVector;
 
 namespace SemanticKernelAIApplication
 {
@@ -83,8 +87,52 @@ namespace SemanticKernelAIApplication
             return null;
         }
 
+        public static IAIConnectorConfiguration GetEmbeddingConnectorConfiguration(ConnectorType connectorType)
+        {
+            AppConfiguration appConfiguration = new AppConfiguration();
+
+            if (connectorType == ConnectorType.Ollama)
+            {
+                OllamaConnectorEmbeddingConfig ollamConfig = new OllamaConnectorEmbeddingConfig();
+
+                var config = appConfiguration.GetEmbeddingConnectorConfiguration("ollama");
+                ollamConfig.ModelId = config.GetValue<string>("ModelId");
+                ollamConfig.Uri = config.GetValue<string>("Uri");
+
+                return ollamConfig;
+            }
+            return null;
+
+        }
+
+        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(ConnectorType connectorType)
+        {
+            AppConfiguration appConfiguration = new AppConfiguration();
+
+            if (connectorType == ConnectorType.VectorStore)
+            {
+                QdrantVectorStorConfiguration vcConfig = new QdrantVectorStorConfiguration();
+
+                var config = appConfiguration.GetEmbeddingConnectorConfiguration("qdrant");
+                vcConfig.Uri = config.GetValue<string>("uri");
+                vcConfig.ApiKey = config.GetValue<string>("apikey");
+                vcConfig.CollectionName = config.GetValue<string>("collectionname");
+
+                return vcConfig;
+            }
+            return null;
+
+        }
+
         public static void  CreateAnStoreEmbedding()
         {
+            IKernelService kernelService = new KernelService();
+
+            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore);
+            IDataLoader pDFLoader = new PDFLoader();
+            IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
+            IVectorStoreService vectorStoreService = new QdrantVectorStoreService(_embeddingGenerator, iAIConnectorConfiguration);
+
 
         }
     }

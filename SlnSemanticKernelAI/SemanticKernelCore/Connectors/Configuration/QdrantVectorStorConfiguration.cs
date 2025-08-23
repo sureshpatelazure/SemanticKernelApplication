@@ -8,5 +8,8 @@ namespace SemanticKernelCore.Connectors.Configuration
 {
     public class QdrantVectorStorConfiguration : IAIConnectorConfiguration
     {
+        public string Uri { get; set; }
+        public string ApiKey { get; set; }
+        public string CollectionName { get; set; }
     }
 }

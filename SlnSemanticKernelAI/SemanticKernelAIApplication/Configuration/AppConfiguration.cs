@@ -22,5 +22,25 @@ namespace SemanticKernelAIApplication.Configuration
             return section;
 
         }
+
+        public IConfigurationSection GetEmbeddingConnectorConfiguration(string ConnectorName)
+        {
+            var section = _connectorConfiguration.GetSection("embedding").GetSection(ConnectorName);
+            if (section == null)
+                throw new InvalidOperationException($"Missing configuration for embedding:{ConnectorName}");
+
+            return section;
+
+        }
+
+        public IConfigurationSection GetVectorStoreConnectorConfiguration(string ConnectorName)
+        {
+            var section = _connectorConfiguration.GetSection("vectorstore").GetSection(ConnectorName);
+            if (section == null)
+                throw new InvalidOperationException($"Missing configuration for vectorstore:{ConnectorName}");
+
+            return section;
+
+        }
     }
 }
