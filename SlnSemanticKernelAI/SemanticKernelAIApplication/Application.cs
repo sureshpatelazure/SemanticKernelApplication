@@ -109,7 +109,7 @@ namespace SemanticKernelAIApplication
 
         }
 
-        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(ConnectorType connectorType)
+        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(ConnectorType connectorType, string collectionName)
         {
             AppConfiguration appConfiguration = new AppConfiguration();
 
@@ -120,7 +120,23 @@ namespace SemanticKernelAIApplication
                 var config = appConfiguration.GetVectorStoreConnectorConfiguration("qdrant");
                 vcConfig.Uri = config.GetValue<string>("uri");
                 vcConfig.ApiKey = config.GetValue<string>("apikey");
-                vcConfig.CollectionName = config.GetValue<string>("collectionname");
+                var collectionsSection = config.GetSection("collectionname");
+                var collections = new Dictionary<string, QdrantCollectionConfig>();
+
+                var collection = collectionsSection.GetSection(collectionName);
+                if (!collection.Exists())
+                    throw new InvalidOperationException($"Collection '{collectionName}' not found in configuration.");
+
+                var collectionConfig = new QdrantCollectionConfig
+                {
+                    FolderPath = collection.GetValue<string>("folderPath"),
+                    Filepath = collection.GetSection("filepath").Get<string[]>(),
+                    BatchSize = collection.GetValue<int>("batchSize"),
+                    BatchDivision = collection.GetValue<int>("batchDivision")
+                };
+                collections[collectionName] = collectionConfig;
+
+                vcConfig.Collection = collections;
 
                 return vcConfig;
             }
@@ -143,20 +159,37 @@ namespace SemanticKernelAIApplication
             embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);
             kernelService.BuildKernel();
 
-            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore);
+            string collectionName = "IndianBailJudgments";  
+            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore, collectionName);
+            QdrantVectorStorConfiguration qdrantVectorStorConfiguration = iAIConnectorConfiguration as QdrantVectorStorConfiguration;
             IDataLoader pDFLoader = new PDFLoader();
             IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
-            IVectorStoreService vectorStoreService = new QdrantVectorStoreService(_embeddingGenerator, iAIConnectorConfiguration);
+            IVectorStoreService vectorStoreService = new QdrantVectorStoreService(_embeddingGenerator, iAIConnectorConfiguration, collectionName);
 
-            //var folderPath = configuration.GetSection("files:pdffiles:IndianBailJudgments:folderPath").Get<string>();
-            //var filePaths = configuration.GetSection("files:pdffiles:IndianBailJudgments:filepath").Get<string[]>();
-            //var batchSize = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchSize");
-            //var batchDivision = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchDivision");
+            // Use the actual collection name variable, not the string "collectionName"
 
-            var folderPath = "";
-            string[] filePaths = ["C:\\GenAI\\IndianBailJudgmentsPDFS\\case0801.pdf"];
-            int  batchSize = 1;
-            int batchDivision = 3;
+            if (qdrantVectorStorConfiguration == null)
+                throw new InvalidOperationException("No QdrantVectorStorConfiguration found");
+
+            if (qdrantVectorStorConfiguration.Collection == null)
+                throw new InvalidOperationException("No collections found in QdrantVectorStorConfiguration.");
+
+            if (!qdrantVectorStorConfiguration.Collection.TryGetValue(collectionName, out var collectionConfig) || collectionConfig == null)
+                throw new InvalidOperationException($"Collection '{collectionName}' not found in QdrantVectorStorConfiguration.");
+
+            if (string.IsNullOrWhiteSpace(collectionConfig.FolderPath) && collectionConfig.Filepath == null)
+                throw new InvalidOperationException($"'folderPath' is missing or empty for collection '{collectionName}'.");
+
+            if (collectionConfig.BatchSize <= 0)
+                throw new InvalidOperationException($"'batchSize' must be greater than zero for collection '{collectionName}'.");
+
+            if (collectionConfig.BatchDivision <= 0)
+                throw new InvalidOperationException($"'batchDivision' must be greater than zero for collection '{collectionName}'.");
+
+            var folderPath = collectionConfig.FolderPath;
+            string[] filePaths = collectionConfig.Filepath;
+            int batchSize = collectionConfig.BatchSize;
+            int batchDivision = collectionConfig.BatchDivision;
 
             if (Directory.Exists(folderPath))
             {

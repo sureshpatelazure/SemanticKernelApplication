@@ -25,7 +25,15 @@
     "qdrant": {
       "uri": "https://56904cc1-06fd-4c6b-9ed4-4bb45ebfe815.us-east4-0.gcp.cloud.qdrant.io:6334",
       "apikey": "",
-      "collectionname": "IndianBailJudgments"
+      "collectionname": {
+        "IndianBailJudgments": {
+          "folderPath": "",
+          "filepath": [ "C:\\GenAI\\IndianBailJudgmentsPDFS\\case0801.pdf" ],
+          "batchSize": 1,
+          "batchDivision": 3
+        }
+      }
+
     }
   }
 }
