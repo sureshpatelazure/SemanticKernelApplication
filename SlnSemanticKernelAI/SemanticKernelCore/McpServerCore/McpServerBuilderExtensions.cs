@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ModelContextProtocol.Server;
 
-namespace SemanticKernelCore.McpServer
+namespace SemanticKernelCore.McpServerCore
 {
     public static class McpServerBuilderExtensions
     {

@@ -1,18 +1,18 @@
 ﻿using PizzaOrderPlugin.Plugin;
 using SemanticKernelCore.KernelCore;
-using SemanticKernelCore.McpServer;
+using SemanticKernelCore.McpServerCore;
 using SemanticKernelCore.Plugin;
 
 //////// Kernel and Plugin Initialization ////////
 IKernelService kernelService = new KernelService();
 kernelService.CreatekernelBuilder();
 
-IPLuginObject pLuginObject = new PLuginObject();
-pLuginObject.KernelService = kernelService;
+IMcpServerService mcpServerService = new McpServerService();
+mcpServerService.KernelService = kernelService; 
 
 List<Object> Plugins = new List<object>();
 Plugins.Add(new PizzaPlugin());
-pLuginObject.AddPluginObject(Plugins);
+mcpServerService.AddTool(Plugins);
 
 kernelService.BuildKernel();
 
