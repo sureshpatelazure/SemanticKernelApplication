@@ -154,7 +154,7 @@ namespace SemanticKernelAIApplication
             //var batchDivision = configuration.GetValue<int>("files:pdffiles:IndianBailJudgments:batchDivision");
 
             var folderPath = "";
-            string[] filePaths = ["C:\\GenAI\\IndianBailJudgmentsPDFS\\case0001.pdf"];
+            string[] filePaths = ["C:\\GenAI\\IndianBailJudgmentsPDFS\\case0801.pdf"];
             int  batchSize = 1;
             int batchDivision = 3;
 
