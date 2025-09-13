@@ -15,18 +15,9 @@ namespace SemanticKernelCore.VectorStoreCore.QdrantVector
     {
         private readonly QdrantVectorStore? _vectorStore;
         private readonly QdrantCollection<ulong, DataLoader.DataContent>? _collection;
-        public QdrantVectorStoreService(IEmbeddingGenerator embeddingGenerator, IAIConnectorConfiguration iAIConnectorConfiguration, string collectionName)
+        public QdrantVectorStoreService(QdrantVectorStore qdrantVectorStore, string collectionName)
         {
-            QdrantVectorStorConfiguration qdrantVectorStorConfiguration = iAIConnectorConfiguration as QdrantVectorStorConfiguration;
-            QdrantClient qdrantClient = new QdrantClient(new Uri(qdrantVectorStorConfiguration.Uri), qdrantVectorStorConfiguration.ApiKey);
-
-            _vectorStore = new QdrantVectorStore(qdrantClient, true,
-               new QdrantVectorStoreOptions
-               {
-                   EmbeddingGenerator = embeddingGenerator,
-               });
-
-            _collection = _vectorStore.GetCollection<ulong, DataLoader.DataContent>(collectionName);
+            _collection = qdrantVectorStore.GetCollection<ulong, DataLoader.DataContent>(collectionName);
 
             _collection.EnsureCollectionExistsAsync().GetAwaiter().GetResult();
         }
@@ -41,6 +32,5 @@ namespace SemanticKernelCore.VectorStoreCore.QdrantVector
 
             await _collection.UpsertAsync(data);
         }
-        public QdrantCollection<ulong, DataLoader.DataContent>? Collection => _collection;
     }
 }

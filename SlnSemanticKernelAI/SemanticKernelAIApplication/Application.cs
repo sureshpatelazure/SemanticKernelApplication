@@ -8,6 +8,7 @@ using SemanticKernelCore.AIServiceCore.EmbeddingService;
 using SemanticKernelCore.Connectors;
 using SemanticKernelCore.Connectors.Configuration;
 using SemanticKernelCore.Connectors.Ollama;
+using SemanticKernelCore.Connectors.VectorStore;
 using SemanticKernelCore.KernelCore;
 using SemanticKernelCore.VectorStoreCore;
 using SemanticKernelCore.VectorStoreCore.DataLoader;
@@ -171,7 +172,11 @@ namespace SemanticKernelAIApplication
             QdrantVectorStorConfiguration qdrantVectorStorConfiguration = iAIConnectorConfiguration as QdrantVectorStorConfiguration;
             IDataLoader pDFLoader = new PDFLoader();
             IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
-            IVectorStoreService vectorStoreService = new QdrantVectorStoreService(_embeddingGenerator, iAIConnectorConfiguration, collectionName);
+            IVectorStoreConnector vectorStoreConnector = new QdrantVectorStoreConnector();
+            
+             embeddingService.AddEmbeddingGenerator(embeddingGeneratorConnector, embeddingConfiguration);
+            var vectorstoreconnector = vectorStoreConnector.AddVectorStore(iAIConnectorConfiguration, _embeddingGenerator);
+            IVectorStoreService vectorStoreService = new QdrantVectorStoreService(vectorstoreconnector, collectionName);
 
             // Use the actual collection name variable, not the string "collectionName"
 
