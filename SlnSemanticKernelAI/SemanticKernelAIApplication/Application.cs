@@ -116,11 +116,11 @@ namespace SemanticKernelAIApplication
 
         }
 
-        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(ConnectorType connectorType, string collectionName)
+        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(VectorStoreType vectorStoreType, string collectionName)
         {
             AppConfiguration appConfiguration = new AppConfiguration();
 
-            if (connectorType == ConnectorType.VectorStore)
+            if (vectorStoreType == VectorStoreType.Qdrant)
             {
                 QdrantVectorStorConfiguration vcConfig = new QdrantVectorStorConfiguration();
 
@@ -167,7 +167,7 @@ namespace SemanticKernelAIApplication
             kernelService.BuildKernel();
 
             string collectionName = "IndianBailJudgments";  
-            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(ConnectorType.VectorStore, collectionName);
+            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(VectorStoreType.Qdrant, collectionName);
             QdrantVectorStorConfiguration qdrantVectorStorConfiguration = iAIConnectorConfiguration as QdrantVectorStorConfiguration;
             IDataLoader pDFLoader = new PDFLoader();
             IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
