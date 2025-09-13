@@ -23,6 +23,18 @@ namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
             chatCompletionConnector.AddChatCompletion(connectorConfiguration);
         }
 
+        private void AddEmbeddingGenerator(IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration embeddingConfiguration)
+        {
+            if (KernelService == null)
+            {
+                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
+            }
+
+            embeddingGeneratorConnector.KernelService = KernelService;
+
+            embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);
+        }
+
         private ChatCompletionAgent CreateAgent(string yamContent)
         {
             if (KernelService == null)
@@ -60,14 +72,21 @@ namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
             };
             pluginObject.AddPluginObject(plugins);
         }
-        public abstract IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string agentPromptFilePath, List<object> plugins);
+        public abstract IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration, IAIConnectorConfiguration embeddingConfiguration, string agentPrompt, List<object> plugins);
 
-        protected IChatCompletion RunChatService(IAIConnectorConfiguration iAIConnectorConfiguration, IChatCompletionConnector chatCompletionConnector,string yamContent, List<object> plugins)
+        protected IChatCompletion RunChatService(
+            IAIConnectorConfiguration iAIConnectorConfiguration, IChatCompletionConnector chatCompletionConnector,
+            IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration embeddingConfiguration,
+            string yamContent, List<object> plugins)
         {
             KernelService.CreatekernelBuilder();
 
             AddChatCompletionService(chatCompletionConnector, iAIConnectorConfiguration);
             AddPluginObject(plugins);
+            if(embeddingGeneratorConnector != null && embeddingConfiguration != null)
+            {
+                AddEmbeddingGenerator(embeddingGeneratorConnector, embeddingConfiguration);
+            }   
             KernelService.BuildKernel();
 
             ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);

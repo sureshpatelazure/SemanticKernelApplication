@@ -7,10 +7,14 @@ namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
     public class HuggingFaceChatCompletionService : AIChatCompletionService
     {
-        public override IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration,string yamContent, List<object> plugins    )
+        public override IChatCompletion RunChatCompletionService(
+            IAIConnectorConfiguration iAIConnectorConfiguration,
+            IAIConnectorConfiguration embeddingConfiguration,
+            string yamContent, List<object> plugins    )
         {
             IChatCompletionConnector chatCompletionConnector = new HuggingFaceConnector();
-            return RunChatService(iAIConnectorConfiguration, chatCompletionConnector, yamContent, plugins);
+            IEmbeddingGeneratorConnector embeddingGeneratorConnector = null;
+            return RunChatService(iAIConnectorConfiguration, chatCompletionConnector, embeddingGeneratorConnector, embeddingConfiguration, yamContent, plugins);
 
         }
     }

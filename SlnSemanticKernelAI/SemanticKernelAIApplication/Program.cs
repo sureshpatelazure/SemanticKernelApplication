@@ -23,8 +23,8 @@ namespace SemanticKernelAIApplication
             string ymlContent = File.ReadAllText("C:\\GenAI\\indianBailJudgements.yaml");
             List<Object> Plugins = new List<object>();
 
-
-            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins);
+            bool AddEmbeddingGenerator = true;
+            IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins, AddEmbeddingGenerator);
 
             Console.WriteLine();
             Console.Write("AI Agent> Please wait......");

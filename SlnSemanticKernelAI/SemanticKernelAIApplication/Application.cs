@@ -18,7 +18,7 @@ namespace SemanticKernelAIApplication
 {
     public static class Application
     {
-        public static IChatCompletion RunApplication(ConnectorType connectorType, string ymlContent, List<Object> Plugins)
+        public static IChatCompletion RunApplication(ConnectorType connectorType, string ymlContent, List<Object> Plugins, bool AddEmbeddingGenerator = false)
         {
             AIChatCompletionService aIChatCompletionService;
 
@@ -49,7 +49,14 @@ namespace SemanticKernelAIApplication
 
             aIChatCompletionService.KernelService = kernelService;
 
-            return aIChatCompletionService.RunChatCompletionService(connectorConfig, ymlContent, Plugins);
+            IAIConnectorConfiguration embeddingConfiguration = null;
+            if (AddEmbeddingGenerator)
+            {
+                embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
+            }
+            
+
+            return aIChatCompletionService.RunChatCompletionService(connectorConfig, embeddingConfiguration, ymlContent, Plugins);
         }
 
         public static IAIConnectorConfiguration GetChatCompletionConnectorConnectorConfig(ConnectorType connectorType)
