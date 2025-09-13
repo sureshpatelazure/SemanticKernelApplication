@@ -23,7 +23,7 @@ namespace SemanticKernelAIApplication
             string ymlContent = File.ReadAllText("C:\\GenAI\\indianBailJudgements.yaml");
             List<Object> Plugins = new List<object>();
 
-            bool AddEmbeddingGenerator = true;
+            bool AddEmbeddingGenerator = false;
             IChatCompletion chatCompletion = Application.RunApplication(ConnectorType.Ollama, ymlContent, Plugins, AddEmbeddingGenerator);
 
             Console.WriteLine();
