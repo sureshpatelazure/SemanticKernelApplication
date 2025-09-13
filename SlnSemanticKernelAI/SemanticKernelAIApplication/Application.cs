@@ -28,7 +28,7 @@ namespace SemanticKernelAIApplication
             IKernelService kernelService = new KernelService();
             AIChatCompletionService aIChatCompletionService = new AIChatCompletionService(kernelService);
 
-            IAIConnectorConfiguration connectorConfig = GetChatCompletionConnectorConnectorConfig(connectorType);  
+            IAIConnectorConfiguration connectorConfig = ConnectorConfiguration.GetChatCompletionConnectorConnectorConfig(connectorType);  
             if (connectorConfig == null)
             {
                 throw new InvalidOperationException("Failed to get connector configuration.");
@@ -44,7 +44,7 @@ namespace SemanticKernelAIApplication
             IAIConnectorConfiguration embeddingConfiguration = null;
             if (AddEmbeddingGenerator) // modify code for other embedding connectors as needed  
             {
-                embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
+                embeddingConfiguration = ConnectorConfiguration.GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
                 aIChatCompletionService.AddEmbeddingGenerator(new OllamaConnector(), embeddingConfiguration);
             }
             
@@ -55,98 +55,6 @@ namespace SemanticKernelAIApplication
             ChatCompletionAgent chatCompletionAgent =  aIChatCompletionService.CreateAgent(ymlContent);
 
             return aIChatCompletionService.RunAgent(chatCompletionAgent);
-        }
-
-        public static IAIConnectorConfiguration GetChatCompletionConnectorConnectorConfig(ConnectorType connectorType)
-        {
-            AppConfiguration appConfiguration = new AppConfiguration();
-
-            if (connectorType == ConnectorType.AzureAiInference)
-            {
-                var config = appConfiguration.GetChatCompletionConnectorConfiguration("azureaiinference");
-
-                AzureAIInferenceConnectorChatCompletionConfig azureAiInferenceConfig = new AzureAIInferenceConnectorChatCompletionConfig(); 
-                azureAiInferenceConfig.ModelId = config.GetValue<string>("ModelId");
-                azureAiInferenceConfig.Uri = config.GetValue<string>("Uri");
-                azureAiInferenceConfig.ApiKey = config.GetValue<string>("ApiKey");
-                return azureAiInferenceConfig;
-            }
-            else if (connectorType == ConnectorType.Ollama)
-            {
-                OllamaConnectorChatCompletionConfig ollamConfig = new OllamaConnectorChatCompletionConfig();
-
-                var config = appConfiguration.GetChatCompletionConnectorConfiguration("ollama");
-                ollamConfig.ModelId = config.GetValue<string>("ModelId");
-                ollamConfig.Uri = config.GetValue<string>("Uri");
-
-                return ollamConfig;
-            }
-            else if (connectorType == ConnectorType.HuggingFace)
-            {
-                HuggingFaceConnectorChatCompletionConfig hfConfig = new HuggingFaceConnectorChatCompletionConfig();
-
-                var config = appConfiguration.GetChatCompletionConnectorConfiguration("huggingface");
-
-                hfConfig.ModelId = config.GetValue<string>("ModelId");
-                hfConfig.Uri = config.GetValue<string>("Uri");
-                hfConfig.ApiKey = config.GetValue<string>("ApiKey");
-
-                return hfConfig;
-            }
-            return null;
-        }
-
-        public static IAIConnectorConfiguration GetEmbeddingConnectorConfiguration(ConnectorType connectorType)
-        {
-            AppConfiguration appConfiguration = new AppConfiguration();
-
-            if (connectorType == ConnectorType.Ollama)
-            {
-                OllamaConnectorEmbeddingConfig ollamConfig = new OllamaConnectorEmbeddingConfig();
-
-                var config = appConfiguration.GetEmbeddingConnectorConfiguration("ollama");
-                ollamConfig.ModelId = config.GetValue<string>("ModelId");
-                ollamConfig.Uri = config.GetValue<string>("Uri");
-
-                return ollamConfig;
-            }
-            return null;
-
-        }
-
-        public static IAIConnectorConfiguration GetVectorStoreConnectorConfiguration(VectorStoreType vectorStoreType, string collectionName)
-        {
-            AppConfiguration appConfiguration = new AppConfiguration();
-
-            if (vectorStoreType == VectorStoreType.Qdrant)
-            {
-                QdrantVectorStorConfiguration vcConfig = new QdrantVectorStorConfiguration();
-
-                var config = appConfiguration.GetVectorStoreConnectorConfiguration("qdrant");
-                vcConfig.Uri = config.GetValue<string>("uri");
-                vcConfig.ApiKey = config.GetValue<string>("apikey");
-                var collectionsSection = config.GetSection("collectionname");
-                var collections = new Dictionary<string, QdrantCollectionConfig>();
-
-                var collection = collectionsSection.GetSection(collectionName);
-                if (!collection.Exists())
-                    throw new InvalidOperationException($"Collection '{collectionName}' not found in configuration.");
-
-                var collectionConfig = new QdrantCollectionConfig
-                {
-                    FolderPath = collection.GetValue<string>("folderPath"),
-                    Filepath = collection.GetSection("filepath").Get<string[]>(),
-                    BatchSize = collection.GetValue<int>("batchSize"),
-                    BatchDivision = collection.GetValue<int>("batchDivision")
-                };
-                collections[collectionName] = collectionConfig;
-
-                vcConfig.Collection = collections;
-
-                return vcConfig;
-            }
-            return null;
-
         }
 
         public static void  CreateAnStoreEmbedding()
@@ -160,12 +68,12 @@ namespace SemanticKernelAIApplication
             IEmbeddingGeneratorConnector embeddingGeneratorConnector = new OllamaConnector();
             embeddingGeneratorConnector.KernelService = kernelService;
 
-            IAIConnectorConfiguration embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
+            IAIConnectorConfiguration embeddingConfiguration = ConnectorConfiguration.GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
             embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);
             kernelService.BuildKernel();
 
             string collectionName = "IndianBailJudgments";  
-            IAIConnectorConfiguration iAIConnectorConfiguration = GetVectorStoreConnectorConfiguration(VectorStoreType.Qdrant, collectionName);
+            IAIConnectorConfiguration iAIConnectorConfiguration = ConnectorConfiguration.GetVectorStoreConnectorConfiguration(VectorStoreType.Qdrant, collectionName);
             QdrantVectorStorConfiguration qdrantVectorStorConfiguration = iAIConnectorConfiguration as QdrantVectorStorConfiguration;
             IDataLoader pDFLoader = new PDFLoader();
             IEmbeddingGenerator<string, Embedding<float>> _embeddingGenerator = kernelService.Kernel.GetRequiredService<IEmbeddingGenerator<string, Embedding<float>>>();
