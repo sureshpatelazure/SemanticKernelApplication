@@ -7,37 +7,59 @@ using SemanticKernelCore.Plugin;
 
 namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
 {
-    public abstract class AIChatCompletionService
+    public class AIChatCompletionService
     {
-        public IKernelService KernelService { get; set; }
+        private IKernelService _KernelService { get; set; }
 
-        private void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector, IAIConnectorConfiguration connectorConfiguration)
+        public AIChatCompletionService(IKernelService KernelService)
         {
-            if (KernelService == null)
+            _KernelService = KernelService;
+            _KernelService.CreatekernelBuilder();
+        }
+        public void AddChatCompletionService(IChatCompletionConnector chatCompletionConnector, IAIConnectorConfiguration connectorConfiguration)
+        {
+            if (_KernelService == null)
             {
                 throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
             }
 
-            chatCompletionConnector.KernelService = KernelService;
+            chatCompletionConnector.KernelService = _KernelService;
 
             chatCompletionConnector.AddChatCompletion(connectorConfiguration);
         }
 
-        private void AddEmbeddingGenerator(IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration embeddingConfiguration)
+        public void AddEmbeddingGenerator(IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration embeddingConfiguration)
         {
-            if (KernelService == null)
+            if (_KernelService == null)
             {
                 throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
             }
 
-            embeddingGeneratorConnector.KernelService = KernelService;
+            embeddingGeneratorConnector.KernelService = _KernelService;
 
             embeddingGeneratorConnector.AddEmbeddingGenerator(embeddingConfiguration);
         }
 
-        private ChatCompletionAgent CreateAgent(string yamContent)
+        public void AddPluginObject(List<object> plugins)
         {
-            if (KernelService == null)
+            if (plugins == null || !plugins.Any())
+            {
+                return;
+            }
+            if (_KernelService == null)
+            {
+                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before adding plugins.");
+            }
+
+            IPLuginObject pluginObject = new PLuginObject
+            {
+                KernelService = _KernelService
+            };
+            pluginObject.AddPluginObject(plugins);
+        }
+        public ChatCompletionAgent CreateAgent(string yamContent)
+        {
+            if (_KernelService == null)
             {
                 throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before creating an agent.");
             }
@@ -46,52 +68,14 @@ namespace SemanticKernelCore.AIServiceCore.ChatCompletionService
             {
                 throw new ArgumentException("YAML content cannot be null or empty.", nameof(yamContent));
             }
-
-            IAIAgent agent = new AIAgent(KernelService);
+            _KernelService.BuildKernel();
+            IAIAgent agent = new AIAgent(_KernelService);
             return agent.CreateAIAgent(yamContent);
         }
-        private IChatCompletion GetChatCompletion(ChatCompletionAgent chatCompletionAgent)
+
+        public IChatCompletion RunAgent(ChatCompletionAgent chatCompletionAgent)
         {
             return new ChatCompletion(chatCompletionAgent);
-        }
-
-        private void AddPluginObject(List<object> plugins)
-        {
-            if (plugins == null || !plugins.Any())
-            {
-                return;
-            }
-            if (KernelService == null)
-            {
-                throw new InvalidOperationException("KernelService is not initialized. Please set KernelService before adding plugins.");
-            }
-
-            IPLuginObject pluginObject = new PLuginObject
-            {
-                KernelService = KernelService
-            };
-            pluginObject.AddPluginObject(plugins);
-        }
-        public abstract IChatCompletion RunChatCompletionService(IAIConnectorConfiguration iAIConnectorConfiguration, IAIConnectorConfiguration embeddingConfiguration, string agentPrompt, List<object> plugins);
-
-        protected IChatCompletion RunChatService(
-            IAIConnectorConfiguration iAIConnectorConfiguration, IChatCompletionConnector chatCompletionConnector,
-            IEmbeddingGeneratorConnector embeddingGeneratorConnector, IAIConnectorConfiguration embeddingConfiguration,
-            string yamContent, List<object> plugins)
-        {
-            KernelService.CreatekernelBuilder();
-
-            AddChatCompletionService(chatCompletionConnector, iAIConnectorConfiguration);
-            AddPluginObject(plugins);
-            if(embeddingGeneratorConnector != null && embeddingConfiguration != null)
-            {
-                AddEmbeddingGenerator(embeddingGeneratorConnector, embeddingConfiguration);
-            }   
-            KernelService.BuildKernel();
-
-            ChatCompletionAgent chatCompletionAgent = CreateAgent(yamContent);
-
-            return GetChatCompletion(chatCompletionAgent);
         }
     }
 }

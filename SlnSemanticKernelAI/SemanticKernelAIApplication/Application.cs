@@ -1,13 +1,16 @@
 ﻿using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Connectors.Qdrant;
 using SemanticKernelAIApplication.Configuration;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.AIServiceCore.ChatCompletionService;
 using SemanticKernelCore.AIServiceCore.EmbeddingService;
 using SemanticKernelCore.Connectors;
+using SemanticKernelCore.Connectors.AzureAIInference;
 using SemanticKernelCore.Connectors.Configuration;
+using SemanticKernelCore.Connectors.HuggingFace;
 using SemanticKernelCore.Connectors.Ollama;
 using SemanticKernelCore.Connectors.VectorStore;
 using SemanticKernelCore.KernelCore;
@@ -22,24 +25,8 @@ namespace SemanticKernelAIApplication
     {
         public static IChatCompletion RunApplication(ConnectorType connectorType, string ymlContent, List<Object> Plugins, bool AddEmbeddingGenerator = false)
         {
-            AIChatCompletionService aIChatCompletionService;
-
-            if (connectorType == ConnectorType.AzureAiInference)
-            {
-                aIChatCompletionService = new AzureAiInferenceChatCompletionService();
-            }
-            else if (connectorType == ConnectorType.Ollama)
-            {
-                aIChatCompletionService = new OllamaChatCompletionService();
-            }
-            else if (connectorType == ConnectorType.HuggingFace)
-            {
-                aIChatCompletionService = new HuggingFaceChatCompletionService();
-            }
-            else
-            {
-                throw new ArgumentException("Unsupported connector type.", nameof(connectorType));
-            }
+            IKernelService kernelService = new KernelService();
+            AIChatCompletionService aIChatCompletionService = new AIChatCompletionService(kernelService);
 
             IAIConnectorConfiguration connectorConfig = GetChatCompletionConnectorConnectorConfig(connectorType);  
             if (connectorConfig == null)
@@ -47,18 +34,27 @@ namespace SemanticKernelAIApplication
                 throw new InvalidOperationException("Failed to get connector configuration.");
             }
 
-            IKernelService kernelService = new KernelService();
-
-            aIChatCompletionService.KernelService = kernelService;
+            if (connectorType == ConnectorType.AzureAiInference)
+                aIChatCompletionService.AddChatCompletionService(new AzureAIInferenceConnector(), connectorConfig);   
+            else if (connectorType == ConnectorType.HuggingFace)
+                aIChatCompletionService.AddChatCompletionService(new HuggingFaceConnector(), connectorConfig);   
+            else if (connectorType == ConnectorType.Ollama) 
+                aIChatCompletionService.AddChatCompletionService(new OllamaConnector(), connectorConfig);  
 
             IAIConnectorConfiguration embeddingConfiguration = null;
-            if (AddEmbeddingGenerator)
+            if (AddEmbeddingGenerator) // modify code for other embedding connectors as needed  
             {
                 embeddingConfiguration = GetEmbeddingConnectorConfiguration(ConnectorType.Ollama);
+                aIChatCompletionService.AddEmbeddingGenerator(new OllamaConnector(), embeddingConfiguration);
             }
             
+            if (Plugins != null && Plugins.Any())
+            {
+                aIChatCompletionService.AddPluginObject(Plugins);
+            }
+            ChatCompletionAgent chatCompletionAgent =  aIChatCompletionService.CreateAgent(ymlContent);
 
-            return aIChatCompletionService.RunChatCompletionService(connectorConfig, embeddingConfiguration, ymlContent, Plugins);
+            return aIChatCompletionService.RunAgent(chatCompletionAgent);
         }
 
         public static IAIConnectorConfiguration GetChatCompletionConnectorConnectorConfig(ConnectorType connectorType)
