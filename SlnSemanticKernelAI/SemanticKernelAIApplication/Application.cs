@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Connectors.Qdrant;
 using SemanticKernelAIApplication.Configuration;
 using SemanticKernelCore.AIAgentCore;
 using SemanticKernelCore.AIServiceCore.ChatCompletionService;
@@ -175,7 +176,7 @@ namespace SemanticKernelAIApplication
             IVectorStoreConnector vectorStoreConnector = new QdrantVectorStoreConnector();
             
              embeddingService.AddEmbeddingGenerator(embeddingGeneratorConnector, embeddingConfiguration);
-            var vectorstoreconnector = vectorStoreConnector.AddVectorStore(iAIConnectorConfiguration, _embeddingGenerator);
+            var vectorstoreconnector = (QdrantVectorStore) vectorStoreConnector.AddVectorStore(iAIConnectorConfiguration, _embeddingGenerator);
             IVectorStoreService vectorStoreService = new QdrantVectorStoreService(vectorstoreconnector, collectionName);
 
             // Use the actual collection name variable, not the string "collectionName"

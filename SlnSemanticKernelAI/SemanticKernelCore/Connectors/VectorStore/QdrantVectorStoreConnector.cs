@@ -12,7 +12,7 @@ namespace SemanticKernelCore.Connectors.VectorStore
 {
     public class QdrantVectorStoreConnector : IVectorStoreConnector
     {
-        public QdrantVectorStore AddVectorStore<T>(T connectorConfiguration, IEmbeddingGenerator embeddingGenerator  ) where T : IAIConnectorConfiguration
+        public object AddVectorStore<T>(T connectorConfiguration, IEmbeddingGenerator embeddingGenerator  ) where T : IAIConnectorConfiguration
         {
             QdrantVectorStorConfiguration qdrantVectorStorConfiguration = connectorConfiguration as QdrantVectorStorConfiguration;
             QdrantClient qdrantClient = new QdrantClient(new Uri(qdrantVectorStorConfiguration.Uri), qdrantVectorStorConfiguration.ApiKey);

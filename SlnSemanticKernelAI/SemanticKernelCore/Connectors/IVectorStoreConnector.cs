@@ -11,6 +11,6 @@ namespace SemanticKernelCore.Connectors
 {
     public interface IVectorStoreConnector
     {
-        public QdrantVectorStore AddVectorStore<T>(T connectorConfiguration, IEmbeddingGenerator embeddingGenerator) where T : IAIConnectorConfiguration;    
+        public object AddVectorStore<T>(T connectorConfiguration, IEmbeddingGenerator embeddingGenerator) where T : IAIConnectorConfiguration;    
     }
 }
